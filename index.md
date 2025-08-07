@@ -17,6 +17,7 @@ Welcome to my Helm chart repository!
 ## 📥 How to Use
 
 ```bash
-helm repo add kjhooni https://kjhooni.github.io/helm-charts/
-helm repo update
+helm repo add kjhooni https://kjhooni.github.io/helm-charts/   
+helm repo update   
 helm search repo kjhooni
+```
