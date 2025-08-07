@@ -26,7 +26,12 @@ jobs:
           helm repo index .deploy --url https://kjhooni.github.io/helm-charts/
           cp index.md .deploy/
           cp _config.yml .deploy/
-          rm -rf .deploy/.nojekyll
+          if [ -f .deploy/.nojekyll ]; then
+            echo ".nojekyll file found in .deploy directory. Removing..."
+            rm -f .deploy/.nojekyll
+          else
+            echo "No .nojekyll file found in .deploy directory."
+          fi
 
       - name: Publish to GitHub Pages (gh-pages)
         uses: peaceiris/actions-gh-pages@v4
