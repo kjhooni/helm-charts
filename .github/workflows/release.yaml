@@ -21,12 +21,11 @@ jobs:
 
       - name: Package Helm charts
         run: |
-          mkdir -p .deploy
-          helm package charts/* --destination .deploy
+          helm package charts/*
 
       - name: Generate index.yaml
         run: |
-          helm repo index .deploy --url https://kjhooni.github.io/helm-charts/
+          helm repo index . --url https://kjhooni.github.io/helm-charts/
 
       - name: Publish to GitHub Pages (gh-pages)
         uses: peaceiris/actions-gh-pages@v4
