@@ -26,6 +26,7 @@ jobs:
           helm repo index .deploy --url https://kjhooni.github.io/helm-charts/
           cp index.md .deploy/
           cp _config.yml .deploy/
+          rm -rf .deploy/.nojekyll
 
       - name: Publish to GitHub Pages (gh-pages)
         uses: peaceiris/actions-gh-pages@v4
