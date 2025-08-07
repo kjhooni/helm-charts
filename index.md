@@ -20,3 +20,7 @@ Welcome to my Helm chart repository!
 helm repo add kjhooni https://kjhooni.github.io/helm-charts/
 helm repo update
 helm search repo kjhooni
+
+```bash
+$ npm run dev
+```
