@@ -1,6 +1,6 @@
 ---
 layout: default
-title: kjhooni Helm Charts
+title: kjhooni's helm chart
 ---
 
 # 🚀 Helm Charts by kjhooni
@@ -16,7 +16,7 @@ Welcome to my Helm chart repository!
 
 ## 📥 How to Use
 
-```bash
+```bash   
 helm repo add kjhooni https://kjhooni.github.io/helm-charts/
 helm repo update
 helm search repo kjhooni
