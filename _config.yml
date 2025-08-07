@@ -1,0 +1,12 @@
+
+※ 이건 GitHub Pages의 정적 사이트 기본 템플릿용입니다. `layout: default`는 테마에서 제공되는 기본 레이아웃이에요.
+
+---
+
+### `_config.yml`
+
+```yml
+title: My Helm Charts
+theme: minima
+description: "Helm charts for Kubernetes deployments"
+
