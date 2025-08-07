@@ -3,7 +3,7 @@ layout: default
 title: kjhooni's helm chart
 ---
 
-# 🚀 Helm Charts by kjhooni
+# 🚀 Helm Charts by kjhooni2
 
 Welcome to my Helm chart repository!
 
