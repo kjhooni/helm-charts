@@ -1,9 +1,70 @@
 apiVersion: v1
 entries:
+  harbor:
+  - annotations:
+      category: Infrastructure
+      images: |
+        - name: harbor-adapter-trivy
+          image: docker.io/bitnami/harbor-adapter-trivy:2.13.2-debian-12-r0
+        - name: harbor-core
+          image: docker.io/bitnami/harbor-core:2.13.2-debian-12-r0
+        - name: harbor-exporter
+          image: docker.io/bitnami/harbor-exporter:2.13.2-debian-12-r0
+        - name: harbor-jobservice
+          image: docker.io/bitnami/harbor-jobservice:2.13.2-debian-12-r0
+        - name: harbor-portal
+          image: docker.io/bitnami/harbor-portal:2.13.2-debian-12-r0
+        - name: harbor-registry
+          image: docker.io/bitnami/harbor-registry:2.13.2-debian-12-r0
+        - name: harbor-registryctl
+          image: docker.io/bitnami/harbor-registryctl:2.13.2-debian-12-r0
+        - name: nginx
+          image: docker.io/bitnami/nginx:1.29.0-debian-12-r5
+        - name: os-shell
+          image: docker.io/bitnami/os-shell:12-debian-12-r49
+      licenses: Apache-2.0
+      tanzuCategory: application
+    apiVersion: v2
+    appVersion: 2.13.2
+    created: "2025-08-07T05:44:33.130915961Z"
+    dependencies:
+    - condition: redis.enabled
+      name: redis
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: 21.x.x
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: 16.x.x
+    - name: common
+      repository: oci://registry-1.docker.io/bitnamicharts
+      tags:
+      - bitnami-common
+      version: 2.x.x
+    description: Harbor is an open source trusted cloud-native registry to store,
+      sign, and scan content. It adds functionalities like security, identity, and
+      management to the open source Docker distribution.
+    digest: ee70a49ec79675eca6e96a02c2f98ee9319c2eee8c0b67d2ea09dc48121e3eb6
+    home: https://bitnami.com
+    icon: https://dyltqmyl993wv.cloudfront.net/assets/stacks/harbor-core/img/harbor-core-stack-220x234.png
+    keywords:
+    - docker
+    - registry
+    - vulnerability
+    - scan
+    maintainers:
+    - name: Broadcom, Inc. All Rights Reserved.
+      url: https://github.com/bitnami/charts
+    name: harbor
+    sources:
+    - https://github.com/bitnami/charts/tree/main/bitnami/harbor
+    urls:
+    - https://kjhooni.github.io/helm-charts/harbor-26.8.2.tgz
+    version: 26.8.2
   loki:
   - apiVersion: v2
     appVersion: 3.5.2
-    created: "2025-08-07T05:22:28.778186166Z"
+    created: "2025-08-07T05:44:33.143370338Z"
     dependencies:
     - alias: minio
       condition: minio.enabled
@@ -22,7 +83,7 @@ entries:
       version: 0.30.0
     description: Helm chart for Grafana Loki and Grafana Enterprise Logs supporting
       monolithic, simple scalable, and microservices modes.
-    digest: 2a9b20bda53f0c7da76a5fc9a15da6994cc3f61e32112852a27b135a7750587f
+    digest: 7339dd6a1cd5bc6fdfb0ba9250d4207558bc784dbe048c42938c32eb75a9aeec
     home: https://grafana.github.io/helm-charts
     icon: https://grafana.com/docs/loki/latest/logo_and_name.png
     maintainers:
@@ -40,9 +101,9 @@ entries:
   minio:
   - apiVersion: v1
     appVersion: RELEASE.2024-12-18T13-15-44Z
-    created: "2025-08-07T05:22:28.779834985Z"
+    created: "2025-08-07T05:44:33.144766198Z"
     description: High Performance Object Storage
-    digest: 8517517693989e279deb414077aca85abe2e96f2805077a44d71a88acc81a394
+    digest: 23bd079f7e47321752b276f33cee5996932ac020ef35b75a9f8992281f6e86df
     home: https://min.io
     icon: https://min.io/resources/img/logo/MINIO_wordmark.png
     keywords:
@@ -70,9 +131,9 @@ entries:
           description: "Update the Nexus3 OCI image to v3.81.1."
     apiVersion: v2
     appVersion: 3.81.1
-    created: "2025-08-07T05:22:28.782342197Z"
+    created: "2025-08-07T05:44:33.146301318Z"
     description: Helm chart for Sonatype Nexus 3 OSS.
-    digest: b53347083b2c08fe24fe8e8647aa2a0cc0c754e821c9cdd06402cb8966ab134b
+    digest: f15dc744a931360e161824cc63b7eca3d70474dfc71cee4f8fe04d84f350f01f
     home: https://www.sonatype.com/products/sonatype-nexus-repository
     icon: https://raw.githubusercontent.com/stevehipwell/helm-charts/main/charts/nexus3/icon.png
     keywords:
@@ -97,11 +158,11 @@ entries:
   nfs-subdir-external-provisioner:
   - apiVersion: v1
     appVersion: 4.0.2
-    created: "2025-08-07T05:22:28.78284332Z"
+    created: "2025-08-07T05:44:33.146764804Z"
     description: nfs-subdir-external-provisioner is an automatic provisioner that
       used your *already configured* NFS server, automatically creating Persistent
       Volumes.
-    digest: ed75f33b968d652c020b8de8306a7eaf04d8e884c122c546f2b79b25e6834078
+    digest: 00e034eb1e3cf7f42ddebb41f56a57ac148dda08ea667e8865a08424b432b140
     home: https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner
     keywords:
     - nfs
@@ -114,4 +175,4 @@ entries:
     urls:
     - https://kjhooni.github.io/helm-charts/nfs-subdir-external-provisioner-4.0.18.tgz
     version: 4.0.18
-generated: "2025-08-07T05:22:28.76523984Z"
+generated: "2025-08-07T05:44:33.110535088Z"
