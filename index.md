@@ -1,14 +1,20 @@
-# Helm Charts for kjhooni
+---
+layout: default
+title: kjhooni Helm Charts
+---
 
-Welcome to my Helm chart repository! 🚀
+# 🚀 Helm Charts by kjhooni
 
-## Available Charts
+Welcome to my Helm chart repository!
 
-- **nexus3**: Sonatype Nexus 3 OSS
-- **minio**: High performance, Kubernetes-native object storage
-- **nfs-subdir-external-provisioner**: Dynamic NFS provisioning
+## 📦 Available Charts
 
-## How to use
+- **nexus3** – Sonatype Nexus 3 OSS
+- **minio** – High performance object storage
+- **nfs-subdir-external-provisioner** – Dynamic NFS provisioning
+- **loki** – Log aggregation system
+
+## 📥 How to Use
 
 ```bash
 helm repo add kjhooni https://kjhooni.github.io/helm-charts/
