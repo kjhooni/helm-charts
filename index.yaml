@@ -3,7 +3,7 @@ entries:
   loki:
   - apiVersion: v2
     appVersion: 3.5.2
-    created: "2025-08-07T05:19:34.213698094Z"
+    created: "2025-08-07T05:22:28.778186166Z"
     dependencies:
     - alias: minio
       condition: minio.enabled
@@ -22,7 +22,7 @@ entries:
       version: 0.30.0
     description: Helm chart for Grafana Loki and Grafana Enterprise Logs supporting
       monolithic, simple scalable, and microservices modes.
-    digest: 8076a99008b7f3584909a515a5868a0a5f4fdcc9b9a0f1a9538436a90742eef5
+    digest: 2a9b20bda53f0c7da76a5fc9a15da6994cc3f61e32112852a27b135a7750587f
     home: https://grafana.github.io/helm-charts
     icon: https://grafana.com/docs/loki/latest/logo_and_name.png
     maintainers:
@@ -40,9 +40,9 @@ entries:
   minio:
   - apiVersion: v1
     appVersion: RELEASE.2024-12-18T13-15-44Z
-    created: "2025-08-07T05:19:34.215123727Z"
+    created: "2025-08-07T05:22:28.779834985Z"
     description: High Performance Object Storage
-    digest: 1c1d040ab45a7f706f955cc614b4684e499af886d26d407406ed85c3d52571c7
+    digest: 8517517693989e279deb414077aca85abe2e96f2805077a44d71a88acc81a394
     home: https://min.io
     icon: https://min.io/resources/img/logo/MINIO_wordmark.png
     keywords:
@@ -70,9 +70,9 @@ entries:
           description: "Update the Nexus3 OCI image to v3.81.1."
     apiVersion: v2
     appVersion: 3.81.1
-    created: "2025-08-07T05:19:34.217729057Z"
+    created: "2025-08-07T05:22:28.782342197Z"
     description: Helm chart for Sonatype Nexus 3 OSS.
-    digest: 5a6c66c5dbddd47c0d205fef0218bee220a9972f1f8ff9eb657793b43570353e
+    digest: b53347083b2c08fe24fe8e8647aa2a0cc0c754e821c9cdd06402cb8966ab134b
     home: https://www.sonatype.com/products/sonatype-nexus-repository
     icon: https://raw.githubusercontent.com/stevehipwell/helm-charts/main/charts/nexus3/icon.png
     keywords:
@@ -97,11 +97,11 @@ entries:
   nfs-subdir-external-provisioner:
   - apiVersion: v1
     appVersion: 4.0.2
-    created: "2025-08-07T05:19:34.218227736Z"
+    created: "2025-08-07T05:22:28.78284332Z"
     description: nfs-subdir-external-provisioner is an automatic provisioner that
       used your *already configured* NFS server, automatically creating Persistent
       Volumes.
-    digest: 260664ddb7b775a6a0d8ff40c74d40075db9b9795cf9a11886061e47c88023a2
+    digest: ed75f33b968d652c020b8de8306a7eaf04d8e884c122c546f2b79b25e6834078
     home: https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner
     keywords:
     - nfs
@@ -114,4 +114,4 @@ entries:
     urls:
     - https://kjhooni.github.io/helm-charts/nfs-subdir-external-provisioner-4.0.18.tgz
     version: 4.0.18
-generated: "2025-08-07T05:19:34.200972079Z"
+generated: "2025-08-07T05:22:28.76523984Z"
