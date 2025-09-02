@@ -26,7 +26,7 @@ entries:
       tanzuCategory: application
     apiVersion: v2
     appVersion: 2.13.2
-    created: "2025-08-12T05:42:27.843563342Z"
+    created: "2025-09-02T04:25:39.266211913Z"
     dependencies:
     - condition: redis.enabled
       name: redis
@@ -44,7 +44,7 @@ entries:
     description: Harbor is an open source trusted cloud-native registry to store,
       sign, and scan content. It adds functionalities like security, identity, and
       management to the open source Docker distribution.
-    digest: 9c8bb889ae278f4a05c6384df35c53aa34d97a59bfb7843679ff414ddd261d44
+    digest: 203cd0d865b484cc2f8cdbe3efb3001894478592473fa51e6a432ca15b55e507
     home: https://bitnami.com
     icon: https://dyltqmyl993wv.cloudfront.net/assets/stacks/harbor-core/img/harbor-core-stack-220x234.png
     keywords:
@@ -64,7 +64,7 @@ entries:
   loki:
   - apiVersion: v2
     appVersion: 3.5.2
-    created: "2025-08-12T05:42:27.861502401Z"
+    created: "2025-09-02T04:25:39.278866647Z"
     dependencies:
     - alias: minio
       condition: minio.enabled
@@ -83,7 +83,7 @@ entries:
       version: 0.30.0
     description: Helm chart for Grafana Loki and Grafana Enterprise Logs supporting
       monolithic, simple scalable, and microservices modes.
-    digest: f560125c5fe1c17e06aaaa6c6a62a72c9070252f525e7d85f5e053be95e903b8
+    digest: 2e80b3c4e866bb742df921107f727b738571edc1daf5b43b32414cd64303c225
     home: https://grafana.github.io/helm-charts
     icon: https://grafana.com/docs/loki/latest/logo_and_name.png
     maintainers:
@@ -101,9 +101,9 @@ entries:
   minio:
   - apiVersion: v1
     appVersion: RELEASE.2024-12-18T13-15-44Z
-    created: "2025-08-12T05:42:27.862936145Z"
+    created: "2025-09-02T04:25:39.280302201Z"
     description: High Performance Object Storage
-    digest: efc4a4e60c406b6711f7a0130a0c59f761a6fb8f753960b9eb0f877eb8299170
+    digest: 5fe3c399551f0c7816d19fa82ba0930f8926cd2b55da67cbc4ed9a3a110f54fb
     home: https://min.io
     icon: https://min.io/resources/img/logo/MINIO_wordmark.png
     keywords:
@@ -131,9 +131,9 @@ entries:
           description: "Update the Nexus3 OCI image to v3.81.1."
     apiVersion: v2
     appVersion: 3.81.1
-    created: "2025-08-12T05:42:27.864614577Z"
+    created: "2025-09-02T04:25:39.281976193Z"
     description: Helm chart for Sonatype Nexus 3 OSS.
-    digest: be70240cfd75fa0255e49cc405d67b885838077a1198835549ec3f8cbf3103ec
+    digest: 2eecae661b35f03ca58989c17b6f1b4116253cadda0284bd3557cc0401fe082e
     home: https://www.sonatype.com/products/sonatype-nexus-repository
     icon: https://raw.githubusercontent.com/stevehipwell/helm-charts/main/charts/nexus3/icon.png
     keywords:
@@ -158,11 +158,11 @@ entries:
   nfs-subdir-external-provisioner:
   - apiVersion: v1
     appVersion: 4.0.2
-    created: "2025-08-12T05:42:27.865097805Z"
+    created: "2025-09-02T04:25:39.282460555Z"
     description: nfs-subdir-external-provisioner is an automatic provisioner that
       used your *already configured* NFS server, automatically creating Persistent
       Volumes.
-    digest: e45b66d604c330b383bafaa3fe7a65071d10230ed8eaa8ba699993a05a5d5a6a
+    digest: ea963bb3bb0941bcdc0c32e082bbcfc61814d8c2f37b2a0b5ffbd87291b1c174
     home: https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner
     keywords:
     - nfs
@@ -175,4 +175,4 @@ entries:
     urls:
     - https://kjhooni.github.io/helm-charts/nfs-subdir-external-provisioner-4.0.18.tgz
     version: 4.0.18
-generated: "2025-08-12T05:42:27.818159113Z"
+generated: "2025-09-02T04:25:39.246034092Z"

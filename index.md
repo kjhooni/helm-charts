@@ -3,9 +3,9 @@ layout: default
 title: kjhooni Helm Charts
 ---
 
-# 🚀 Helm Charts by kjhooni
+# 🚀 Helm Charts by kjhooni zzz
 
-Welcome to kjhooni's Helm chart repository!
+Welcome to my Helm chart repository!
 
 ## 📦 Available Charts
 
