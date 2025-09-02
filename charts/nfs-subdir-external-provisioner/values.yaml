@@ -8,8 +8,8 @@ image:
 imagePullSecrets: []
 
 nfs:
-  server: 172.26.71.12
-  path: /share_3026a409_ee00_484c_b409_0675f515de69
+  server: 172.26.0.119 #nas_ip
+  path: /share_f46ad59c_02e1_4964_981c_096e1c82b45c #nas 경로
   mountOptions:
   volumeName: nfs-subdir-external-provisioner-root
   # Reclaim policy for the main nfs volume
