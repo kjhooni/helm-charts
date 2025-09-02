@@ -98,7 +98,7 @@ service:
   #       - nexus-docker-hosted-2.local
   #nodePort: 30081
 ingress:
-  enabled: true
+  enabled: false
   ingressClassName: nginx
   hosts:
     - nexus3.client.or.kr
