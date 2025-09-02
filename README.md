@@ -1,1 +1,1 @@
-# helm-chartsz
+https://kjhooni.github.io/helm-charts/
