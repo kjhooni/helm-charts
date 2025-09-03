@@ -14,3 +14,11 @@ persistence:
       existingClaim: "database-data-harbor-database-0"   
     redis-master:
       existingClaim: "redis-data-harbor-redis-master-0" 
+
+ingress:
+  core:
+    annotations:
+      ingress.kubernetes.io/ssl-redirect: "false"
+      ingress.kubernetes.io/proxy-body-size: "0"
+      nginx.ingress.kubernetes.io/ssl-redirect: "false"
+      nginx.ingress.kubernetes.io/proxy-body-size: "0"
