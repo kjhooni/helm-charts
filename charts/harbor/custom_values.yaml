@@ -26,3 +26,5 @@ ingress:
 nginx:
   tls:
     enabled: false
+
+adminPassword: "P@ssw0rd!"
