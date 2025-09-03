@@ -1,19 +1,19 @@
-persistence:
-  persistentVolumeClaim:
-    registry:
-      existingClaim: "harbor-registry"
-    jobservice:
-      existingClaim: "harbor-jobservice"
-    trivy:
-      existingClaim: "data-harbor-trivy-0"   
-    postgresql:
-      existingClaim: "data-harbor-postgresql-0"   
-    redis:
-      existingClaim: "data-harbor-redis-0"   
-    database:
-      existingClaim: "database-data-harbor-database-0"   
-    redis-master:
-      existingClaim: "redis-data-harbor-redis-master-0" 
+# persistence:
+#   persistentVolumeClaim:
+#     registry:
+#       existingClaim: "harbor-registry"
+#     jobservice:
+#       existingClaim: "harbor-jobservice"
+#     trivy:
+#       existingClaim: "data-harbor-trivy-0"   
+#     postgresql:
+#       existingClaim: "data-harbor-postgresql-0"   
+#     redis:
+#       existingClaim: "data-harbor-redis-0"   
+#     database:
+#       existingClaim: "database-data-harbor-database-0"   
+#     redis-master:
+#       existingClaim: "redis-data-harbor-redis-master-0" 
 
 ingress:
   core:
