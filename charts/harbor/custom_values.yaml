@@ -22,3 +22,7 @@ ingress:
       ingress.kubernetes.io/proxy-body-size: "0"
       nginx.ingress.kubernetes.io/ssl-redirect: "false"
       nginx.ingress.kubernetes.io/proxy-body-size: "0"
+
+nginx:
+  tls:
+    enabled: false
