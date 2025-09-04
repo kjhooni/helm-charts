@@ -1,9 +1,12 @@
 ---
 loki:
+  memberlistConfig: null
+  extraMemberlistConfig: null
+
   config:
     memberlist:
       join_members: []
-      
+
   commonConfig:
     replication_factor: 1
   schemaConfig:
