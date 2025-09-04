@@ -1,24 +1,5 @@
 loki:
   auth_enabled: false
-
-  # config는 반드시 문자열 블록 형태
-  config: |
-    server:
-      http_listen_port: 3100
-      grpc_listen_port: 9095
-
-    ingester:
-      lifecycler:
-        ring:
-          kvstore:
-            store: memberlist
-
-    memberlist:
-      join_members: []
-
-    pattern_ingester:
-      enabled: false
-
   memberlistConfig: {}
   extraMemberlistConfig: {}
   commonConfig:
@@ -59,6 +40,7 @@ chunksCache:
 minio:
   enabled: true
 
+# 나머지 컴포넌트 replicas 0 → SingleBinary 모드만 실행
 backend:
   replicas: 0
 read:
