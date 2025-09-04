@@ -1,7 +1,5 @@
 loki:
   auth_enabled: false
-  memberlistConfig: {}
-  extraMemberlistConfig: {}
   commonConfig:
     replication_factor: 1
   schemaConfig:
@@ -19,6 +17,11 @@ loki:
     enabled: true
   querier:
     max_concurrent: 2
+  ring:
+    kvstore:
+      store: inmemory
+  memberlist:
+    join_members: []
 
 deploymentMode: SingleBinary
 singleBinary:
@@ -34,13 +37,10 @@ singleBinary:
     - name: GOMEMLIMIT
       value: 3750MiB
 
-chunksCache:
-  writebackSizeLimit: 10MB
-
 minio:
   enabled: true
 
-# 나머지 컴포넌트 replicas 0 → SingleBinary 모드만 실행
+# 나머지 컴포넌트는 0
 backend:
   replicas: 0
 read:
