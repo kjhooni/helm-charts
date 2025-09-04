@@ -1,33 +1,85 @@
 loki:
   auth_enabled: false
+
+  # config는 반드시 문자열 블록 형태
+  config: |
+    server:
+      http_listen_port: 3100
+      grpc_listen_port: 9095
+
+    ingester:
+      lifecycler:
+        ring:
+          kvstore:
+            store: memberlist
+
+    memberlist:
+      join_members: []
+
+    pattern_ingester:
+      enabled: false
+
+  memberlistConfig: {}
+  extraMemberlistConfig: {}
   commonConfig:
     replication_factor: 1
-  storage:
-    type: s3
-    bucketNames:
-      chunks: loki-chunks
-      ruler: loki-ruler
-      admin: loki-admin
-    s3:
-      endpoint: http://minio.lgtm.svc.cluster.local:9000
-      accessKeyId: minioadmin
-      secretAccessKey: minioadmin
-      s3ForcePathStyle: true
-      insecure: true
   schemaConfig:
     configs:
-      - from: 2024-01-01
+      - from: 2024-04-01
         store: tsdb
         object_store: s3
         schema: v13
         index:
-          prefix: index_
+          prefix: loki_index_
           period: 24h
-write:
+  ingester:
+    chunk_encoding: snappy
+  tracing:
+    enabled: true
+  querier:
+    max_concurrent: 2
+
+deploymentMode: SingleBinary
+singleBinary:
   replicas: 1
-read:
-  replicas: 1
+  resources:
+    limits:
+      cpu: 1
+      memory: 1Gi
+    requests:
+      cpu: 1
+      memory: 1Gi
+  extraEnv:
+    - name: GOMEMLIMIT
+      value: 3750MiB
+
+chunksCache:
+  writebackSizeLimit: 10MB
+
+minio:
+  enabled: true
+
 backend:
-  replicas: 1
-resultsCache:
-  enabled: false
+  replicas: 0
+read:
+  replicas: 0
+write:
+  replicas: 0
+ingester:
+  replicas: 0
+querier:
+  replicas: 0
+queryFrontend:
+  replicas: 0
+queryScheduler:
+  replicas: 0
+distributor:
+  replicas: 0
+compactor:
+  replicas: 0
+indexGateway:
+  replicas: 0
+bloomCompactor:
+  replicas: 0
+bloomGateway:
+  replicas: 0
