@@ -26,7 +26,7 @@ entries:
       tanzuCategory: application
     apiVersion: v2
     appVersion: 2.13.2
-    created: "2025-09-04T05:28:42.893253273Z"
+    created: "2025-09-04T06:00:13.016916116Z"
     dependencies:
     - condition: redis.enabled
       name: redis
@@ -44,7 +44,7 @@ entries:
     description: Harbor is an open source trusted cloud-native registry to store,
       sign, and scan content. It adds functionalities like security, identity, and
       management to the open source Docker distribution.
-    digest: 1eacff4ec75a444219e26158ff901a9c755909a487d43db9169fc7de1e17d157
+    digest: 48ebef565b5c2e4a62840bfdc398dea6adda64771c9e9de7cd41f7524f7b49a6
     home: https://bitnami.com
     icon: https://dyltqmyl993wv.cloudfront.net/assets/stacks/harbor-core/img/harbor-core-stack-220x234.png
     keywords:
@@ -64,7 +64,7 @@ entries:
   loki:
   - apiVersion: v2
     appVersion: 3.5.2
-    created: "2025-09-04T05:28:42.920441103Z"
+    created: "2025-09-04T06:00:13.047156942Z"
     dependencies:
     - alias: minio
       condition: minio.enabled
@@ -83,7 +83,7 @@ entries:
       version: 0.30.0
     description: Helm chart for Grafana Loki and Grafana Enterprise Logs supporting
       monolithic, simple scalable, and microservices modes.
-    digest: f5633a2bd0adc6c1e9f8957499bf87f4931146ba47688de12130920ede912def
+    digest: e4730f794b700587ce6f8e51f06e634dbbc317faf4216233991513adfa86f1ec
     home: https://grafana.github.io/helm-charts
     icon: https://grafana.com/docs/loki/latest/logo_and_name.png
     maintainers:
@@ -100,7 +100,7 @@ entries:
     version: 6.33.0
   - apiVersion: v2
     appVersion: 3.3.2
-    created: "2025-09-04T05:28:42.908343479Z"
+    created: "2025-09-04T06:00:13.033584107Z"
     dependencies:
     - alias: minio
       condition: minio.enabled
@@ -119,7 +119,7 @@ entries:
       version: 0.21.0
     description: Helm chart for Grafana Loki and Grafana Enterprise Logs supporting
       both simple, scalable and distributed modes.
-    digest: d94c8183e5815df0f65c00e2921721f25113a415e493d8e5d821aceb67248cd6
+    digest: a646693480f7ccebf5717f83e4e0ae1613278de480a601a24452bebf03cb60b3
     home: https://grafana.github.io/helm-charts
     icon: https://grafana.com/docs/loki/latest/logo_and_name.png
     maintainers:
@@ -150,7 +150,7 @@ entries:
       tanzuCategory: service
     apiVersion: v2
     appVersion: 2025.7.23
-    created: "2025-09-04T05:28:42.925272429Z"
+    created: "2025-09-04T06:00:13.051439776Z"
     dependencies:
     - name: common
       repository: oci://registry-1.docker.io/bitnamicharts
@@ -160,7 +160,7 @@ entries:
     description: MinIO(R) is an object storage server, compatible with Amazon S3 cloud
       storage service, mainly used for storing unstructured data (such as photos,
       videos, log files, etc.).
-    digest: da08451dc7cdd4b66a050fc7a58f2808433b2b033f8e12586bbfeaa1c588d1e2
+    digest: 6c259428fbde03087f1845242047277a2aa88f14df5707036d4e277d789fd8ad
     home: https://bitnami.com
     icon: https://dyltqmyl993wv.cloudfront.net/assets/stacks/minio/img/minio-stack-220x234.png
     keywords:
@@ -188,9 +188,9 @@ entries:
           description: "Update the Nexus3 OCI image to v3.81.1."
     apiVersion: v2
     appVersion: 3.81.1
-    created: "2025-09-04T05:28:42.926947813Z"
+    created: "2025-09-04T06:00:13.054296956Z"
     description: Helm chart for Sonatype Nexus 3 OSS.
-    digest: 2b49f5c25ec5392d5493de34b6bc1a236ab439ccbc53a4322a6641c909b4933a
+    digest: 7ddab2dcc22345db0b25d2526b8f823268cfb7eef4802d623d422ff63245dd07
     home: https://www.sonatype.com/products/sonatype-nexus-repository
     icon: https://raw.githubusercontent.com/stevehipwell/helm-charts/main/charts/nexus3/icon.png
     keywords:
@@ -215,11 +215,11 @@ entries:
   nfs-subdir-external-provisioner:
   - apiVersion: v1
     appVersion: 4.0.2
-    created: "2025-09-04T05:28:42.92742072Z"
+    created: "2025-09-04T06:00:13.0548234Z"
     description: nfs-subdir-external-provisioner is an automatic provisioner that
       used your *already configured* NFS server, automatically creating Persistent
       Volumes.
-    digest: f07bd5e75c859113f8578f56a0c6de5e28e34370a3fde621eeacdedea6804606
+    digest: b7222d3b7bcda8890d44f913af0dbff96e81425b0c8b7c4d2c9ca54f7f079c45
     home: https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner
     keywords:
     - nfs
@@ -232,4 +232,4 @@ entries:
     urls:
     - https://kjhooni.github.io/helm-charts/nfs-subdir-external-provisioner-4.0.18.tgz
     version: 4.0.18
-generated: "2025-09-04T05:28:42.872952469Z"
+generated: "2025-09-04T06:00:12.994472279Z"
