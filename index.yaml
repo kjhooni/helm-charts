@@ -26,7 +26,7 @@ entries:
       tanzuCategory: application
     apiVersion: v2
     appVersion: 2.13.2
-    created: "2025-09-04T04:25:59.532436859Z"
+    created: "2025-09-04T04:43:41.156667886Z"
     dependencies:
     - condition: redis.enabled
       name: redis
@@ -44,7 +44,7 @@ entries:
     description: Harbor is an open source trusted cloud-native registry to store,
       sign, and scan content. It adds functionalities like security, identity, and
       management to the open source Docker distribution.
-    digest: c065cc745fdacbd6a56f77c206d6e3019f9b9e370126b28940c9ff13c19bf9fa
+    digest: 6fba4a8b2b065d0b476842163ad5ad8fd9c4251beeeb303072ac151e6aa791fa
     home: https://bitnami.com
     icon: https://dyltqmyl993wv.cloudfront.net/assets/stacks/harbor-core/img/harbor-core-stack-220x234.png
     keywords:
@@ -63,44 +63,8 @@ entries:
     version: 26.8.2
   loki:
   - apiVersion: v2
-    appVersion: 3.5.3
-    created: "2025-09-04T04:25:59.560347813Z"
-    dependencies:
-    - alias: minio
-      condition: minio.enabled
-      name: minio
-      repository: https://charts.min.io/
-      version: 5.4.0
-    - alias: grafana-agent-operator
-      condition: monitoring.selfMonitoring.grafanaAgent.installOperator
-      name: grafana-agent-operator
-      repository: https://grafana.github.io/helm-charts
-      version: 0.5.1
-    - alias: rollout_operator
-      condition: rollout_operator.enabled
-      name: rollout-operator
-      repository: https://grafana.github.io/helm-charts
-      version: 0.32.0
-    description: Helm chart for Grafana Loki and Grafana Enterprise Logs supporting
-      monolithic, simple scalable, and microservices modes.
-    digest: e0c1fa2646a45f5095149bd1d647960c5107eab362f3fbce36ef035694cf4db5
-    home: https://grafana.github.io/helm-charts
-    icon: https://grafana.com/docs/loki/latest/logo_and_name.png
-    maintainers:
-    - name: trevorwhitney
-    - name: jeschkies
-    name: loki
-    sources:
-    - https://github.com/grafana/loki
-    - https://grafana.com/oss/loki/
-    - https://grafana.com/docs/loki/latest/
-    type: application
-    urls:
-    - https://kjhooni.github.io/helm-charts/loki-6.38.0.tgz
-    version: 6.38.0
-  - apiVersion: v2
     appVersion: 3.5.2
-    created: "2025-09-04T04:25:59.545154109Z"
+    created: "2025-09-04T04:43:41.186809107Z"
     dependencies:
     - alias: minio
       condition: minio.enabled
@@ -119,7 +83,7 @@ entries:
       version: 0.30.0
     description: Helm chart for Grafana Loki and Grafana Enterprise Logs supporting
       monolithic, simple scalable, and microservices modes.
-    digest: 8622454701f25b2144de549aa69f531f2466de879441ca2397dad544609b63e3
+    digest: b0a380a4604c233526256319e609e9a71213cd2a07e7080167205e3f8db13563
     home: https://grafana.github.io/helm-charts
     icon: https://grafana.com/docs/loki/latest/logo_and_name.png
     maintainers:
@@ -134,6 +98,42 @@ entries:
     urls:
     - https://kjhooni.github.io/helm-charts/loki-6.33.0.tgz
     version: 6.33.0
+  - apiVersion: v2
+    appVersion: 3.3.2
+    created: "2025-09-04T04:43:41.173624692Z"
+    dependencies:
+    - alias: minio
+      condition: minio.enabled
+      name: minio
+      repository: https://charts.min.io/
+      version: 5.3.0
+    - alias: grafana-agent-operator
+      condition: monitoring.selfMonitoring.grafanaAgent.installOperator
+      name: grafana-agent-operator
+      repository: https://grafana.github.io/helm-charts
+      version: 0.5.0
+    - alias: rollout_operator
+      condition: rollout_operator.enabled
+      name: rollout-operator
+      repository: https://grafana.github.io/helm-charts
+      version: 0.21.0
+    description: Helm chart for Grafana Loki and Grafana Enterprise Logs supporting
+      both simple, scalable and distributed modes.
+    digest: a19ac3f5a7a7c2031b16a719c530ab1ad1ea29c2d0c0f37febbf223e96897150
+    home: https://grafana.github.io/helm-charts
+    icon: https://grafana.com/docs/loki/latest/logo_and_name.png
+    maintainers:
+    - name: trevorwhitney
+    - name: jeschkies
+    name: loki
+    sources:
+    - https://github.com/grafana/loki
+    - https://grafana.com/oss/loki/
+    - https://grafana.com/docs/loki/latest/
+    type: application
+    urls:
+    - https://kjhooni.github.io/helm-charts/loki-6.24.0.tgz
+    version: 6.24.0
   minio:
   - annotations:
       category: Infrastructure
@@ -150,7 +150,7 @@ entries:
       tanzuCategory: service
     apiVersion: v2
     appVersion: 2025.7.23
-    created: "2025-09-04T04:25:59.56914398Z"
+    created: "2025-09-04T04:43:41.190879718Z"
     dependencies:
     - name: common
       repository: oci://registry-1.docker.io/bitnamicharts
@@ -160,7 +160,7 @@ entries:
     description: MinIO(R) is an object storage server, compatible with Amazon S3 cloud
       storage service, mainly used for storing unstructured data (such as photos,
       videos, log files, etc.).
-    digest: 4b2541be4345776f5aeb6a1196614f1152c3c729a6edee010dfd7e6c9bc913a9
+    digest: 538352bd8bd75d97ff5a3b03473a62fae54af6b69c8e49c8a25fff25426937f9
     home: https://bitnami.com
     icon: https://dyltqmyl993wv.cloudfront.net/assets/stacks/minio/img/minio-stack-220x234.png
     keywords:
@@ -188,9 +188,9 @@ entries:
           description: "Update the Nexus3 OCI image to v3.81.1."
     apiVersion: v2
     appVersion: 3.81.1
-    created: "2025-09-04T04:25:59.570855817Z"
+    created: "2025-09-04T04:43:41.192637409Z"
     description: Helm chart for Sonatype Nexus 3 OSS.
-    digest: 7b0097a6e62e18f3d17167d081fb19dfec33a1e513601cac1c177b208b9ba684
+    digest: 00867e72e559fb189b58062915b496f7c99134ca6e77f260e5b77d71cf0e67fa
     home: https://www.sonatype.com/products/sonatype-nexus-repository
     icon: https://raw.githubusercontent.com/stevehipwell/helm-charts/main/charts/nexus3/icon.png
     keywords:
@@ -215,11 +215,11 @@ entries:
   nfs-subdir-external-provisioner:
   - apiVersion: v1
     appVersion: 4.0.2
-    created: "2025-09-04T04:25:59.57134507Z"
+    created: "2025-09-04T04:43:41.193819652Z"
     description: nfs-subdir-external-provisioner is an automatic provisioner that
       used your *already configured* NFS server, automatically creating Persistent
       Volumes.
-    digest: c36b03f0c27ad01d5babc326b14e87904a3518c9fbac29fd0f686de3068e2b1b
+    digest: 61e03ba41c5cc34e3ef98d162f8fd7c7578cf2fe8eee776df086f97dd983e4a3
     home: https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner
     keywords:
     - nfs
@@ -232,4 +232,4 @@ entries:
     urls:
     - https://kjhooni.github.io/helm-charts/nfs-subdir-external-provisioner-4.0.18.tgz
     version: 4.0.18
-generated: "2025-09-04T04:25:59.511828925Z"
+generated: "2025-09-04T04:43:41.132940986Z"
