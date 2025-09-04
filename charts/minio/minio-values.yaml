@@ -3,3 +3,6 @@ auth:
   rootPassword: minioadmin
 
 defaultBuckets: "loki-chunks,loki-ruler,loki-admin,tempo-traces,mimir-blocks,mimir-ruler,mimir-alerts"
+
+service:
+  type: NodePort
