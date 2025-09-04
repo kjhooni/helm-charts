@@ -4,7 +4,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "loki.querierFullname" . }}
-  namespace: {{ include "loki.namespace" . }}
+  namespace: {{ .Release.Namespace }}
   labels:
     {{- include "loki.querierLabels" . | nindent 4 }}
     app.kubernetes.io/part-of: memberlist
@@ -35,13 +35,16 @@ spec:
         {{- toYaml . | nindent 8 }}
         {{- end }}
       labels:
-        {{- include "loki.querierLabels" . | nindent 8 }}
+        {{- include "loki.querierSelectorLabels" . | nindent 8 }}
         app.kubernetes.io/part-of: memberlist
-        {{- with merge (dict) .Values.loki.podLabels .Values.querier.podLabels }}
+        {{- with .Values.loki.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+        {{- with .Values.querier.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
     spec:
-      {{- if semverCompare ">=1.19-0" (include "loki.kubeVersion" .) }}
+      {{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.Version }}
       {{- with .Values.querier.topologySpreadConstraints }}
       topologySpreadConstraints:
         {{- toYaml . | nindent 8 }}
@@ -55,9 +58,6 @@ spec:
       {{- with .Values.querier.hostAliases }}
       hostAliases:
         {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- if and (semverCompare ">=1.33-0" (include "loki.kubeVersion" .)) (kindIs "bool" .Values.querier.hostUsers) }}
-      hostUsers: {{ .Values.querier.hostUsers }}
       {{- end }}
       {{- include "loki.querierPriorityClassName" . | nindent 6 }}
       securityContext:
@@ -81,7 +81,7 @@ spec:
             - -distributor.zone-awareness-enabled=true
             {{- end }}
             {{- end }}
-            {{- with (concat .Values.global.extraArgs .Values.querier.extraArgs) | uniq }}
+            {{- with .Values.querier.extraArgs }}
             {{- toYaml . | nindent 12 }}
             {{- end }}
           ports:
@@ -94,24 +94,20 @@ spec:
             - name: http-memberlist
               containerPort: 7946
               protocol: TCP
-          {{- with (concat .Values.global.extraEnv .Values.querier.extraEnv) | uniq }}
+          {{- with .Values.querier.extraEnv }}
           env:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- with (concat .Values.global.extraEnvFrom .Values.querier.extraEnvFrom) | uniq }}
+          {{- with .Values.querier.extraEnvFrom }}
           envFrom:
             {{- toYaml . | nindent 12 }}
           {{- end }}
           securityContext:
             {{- toYaml .Values.loki.containerSecurityContext | nindent 12 }}
-          {{- with .Values.loki.livenessProbe }}
-          livenessProbe:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-          {{- with .Values.loki.readinessProbe }}
           readinessProbe:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
+            {{- toYaml .Values.loki.readinessProbe | nindent 12 }}
+          livenessProbe:
+            {{- toYaml .Values.loki.livenessProbe | nindent 12 }}
           volumeMounts:
             - name: config
               mountPath: /etc/loki/config
@@ -123,7 +119,7 @@ spec:
             - name: license
               mountPath: /etc/loki/license
             {{- end }}
-            {{- with (concat .Values.global.extraVolumeMounts .Values.querier.extraVolumeMounts) | uniq }}
+            {{- with .Values.querier.extraVolumeMounts }}
             {{- toYaml . | nindent 12 }}
             {{- end }}
           resources:
@@ -164,7 +160,7 @@ spec:
         {{- end }}
         - name: data
           emptyDir: {}
-        {{- with (concat .Values.global.extraVolumes .Values.querier.extraVolumes) | uniq }}
+        {{- with .Values.querier.extraVolumes }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
 {{- end }}

@@ -1,9 +1,1 @@
-{{- if .Values.chunksCache.enabled }}
-
-{{- include "loki.memcached.statefulSet" (dict "ctx" $ "memcacheConfig" .Values.chunksCache "valuesSection" "chunksCache" "component" "chunks-cache") }}
-
-{{- if .Values.chunksCache.l2.enabled }}
----
-{{ include "loki.memcached.statefulSet" (dict "ctx" $ "memcacheConfig" .Values.chunksCache.l2 "valuesSection" "chunksCache" "component" "chunks-cache") }}
-{{- end -}}
-{{- end }}
+{{- include "loki.memcached.statefulSet" (dict "ctx" $ "valuesSection" "chunksCache" "component" "chunks-cache" ) }}

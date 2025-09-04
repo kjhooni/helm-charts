@@ -4,7 +4,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "loki.queryFrontendFullname" . }}
-  namespace: {{ include "loki.namespace" . }}
+  namespace: {{ .Release.Namespace }}
   labels:
     {{- include "loki.queryFrontendLabels" . | nindent 4 }}
   {{- with .Values.loki.annotations }}
@@ -34,13 +34,16 @@ spec:
         {{- toYaml . | nindent 8 }}
         {{- end }}
       labels:
-        {{- include "loki.queryFrontendLabels" . | nindent 8 }}
+        {{- include "loki.queryFrontendSelectorLabels" . | nindent 8 }}
         app.kubernetes.io/part-of: memberlist
-        {{- with merge (dict) .Values.loki.podLabels .Values.queryFrontend.podLabels }}
+        {{- with .Values.loki.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+        {{- with .Values.queryFrontend.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
     spec:
-      {{- if semverCompare ">=1.19-0" (include "loki.kubeVersion" .) }}
+      {{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.Version }}
       {{- with .Values.queryFrontend.topologySpreadConstraints }}
       topologySpreadConstraints:
         {{- toYaml . | nindent 8 }}
@@ -54,9 +57,6 @@ spec:
       {{- with .Values.queryFrontend.hostAliases }}
       hostAliases:
         {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- if and (semverCompare ">=1.33-0" (include "loki.kubeVersion" .)) (kindIs "bool" .Values.queryFrontend.hostUsers) }}
-      hostUsers: {{ .Values.queryFrontend.hostUsers }}
       {{- end }}
       {{- include "loki.queryFrontendPriorityClassName" . | nindent 6 }}
       securityContext:
@@ -73,7 +73,7 @@ spec:
           args:
             - -config.file=/etc/loki/config/config.yaml
             - -target=query-frontend
-            {{- with (concat .Values.global.extraArgs .Values.queryFrontend.extraArgs) | uniq }}
+            {{- with .Values.queryFrontend.extraArgs }}
             {{- toYaml . | nindent 12 }}
             {{- end }}
           ports:
@@ -86,20 +86,18 @@ spec:
             - name: http-memberlist
               containerPort: 7946
               protocol: TCP
-          {{- with (concat .Values.global.extraEnv .Values.queryFrontend.extraEnv) | uniq }}
+          {{- with .Values.queryFrontend.extraEnv }}
           env:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- with (concat .Values.global.extraEnvFrom .Values.queryFrontend.extraEnvFrom) | uniq }}
+          {{- with .Values.queryFrontend.extraEnvFrom }}
           envFrom:
             {{- toYaml . | nindent 12 }}
           {{- end }}
           securityContext:
             {{- toYaml .Values.loki.containerSecurityContext | nindent 12 }}
-          {{- with .Values.loki.readinessProbe }}
           readinessProbe:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
+            {{- toYaml .Values.loki.readinessProbe | nindent 12 }}
           volumeMounts:
             - name: config
               mountPath: /etc/loki/config
@@ -109,7 +107,7 @@ spec:
             - name: license
               mountPath: /etc/loki/license
             {{- end }}
-            {{- with (concat .Values.global.extraVolumeMounts .Values.queryFrontend.extraVolumeMounts) | uniq }}
+            {{- with .Values.queryFrontend.extraVolumeMounts }}
             {{- toYaml . | nindent 12 }}
             {{- end }}
           resources:
@@ -144,7 +142,7 @@ spec:
             secretName: enterprise-logs-license
           {{- end }}
         {{- end }}
-        {{- with (concat .Values.global.extraVolumes .Values.queryFrontend.extraVolumes) | uniq }}
+        {{- with .Values.queryFrontend.extraVolumes }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
 {{- end -}}

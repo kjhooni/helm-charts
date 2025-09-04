@@ -9,7 +9,6 @@ apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   name: {{ include "loki.readFullname" . }}
-  namespace: {{ include "loki.namespace" $ }}
   labels:
     {{- include "loki.readLabels" . | nindent 4 }}
 spec:
@@ -20,7 +19,7 @@ spec:
     name: {{ include "loki.readFullname" . }}
 {{- else }}
     kind: StatefulSet
-    name: {{ include "loki.readFullname" . }}
+    name: {{ include "loki.readFullname" . }}   
 {{- end }}
   minReplicas: {{ .Values.read.autoscaling.minReplicas }}
   maxReplicas: {{ .Values.read.autoscaling.maxReplicas }}

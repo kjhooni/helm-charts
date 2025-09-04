@@ -7,7 +7,7 @@ apiVersion: {{ include "loki.pdb.apiVersion" . }}
 kind: PodDisruptionBudget
 metadata:
   name: {{ include "loki.ingesterFullname" . }}
-  namespace: {{ include "loki.namespace" . }}
+  namespace: {{ .Release.Namespace }}
   labels:
     {{- include "loki.ingesterLabels" . | nindent 4 }}
 spec:

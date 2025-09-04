@@ -1,10 +1,9 @@
-{{- if and .Values.resultsCache.enabled (.Values.memcached.enabled) }}
-{{- if gt (int .Values.resultsCache.replicas) 1 }}
+{{- if .Values.resultsCache.enabled }}
 apiVersion: {{ include "loki.pdb.apiVersion" . }}
 kind: PodDisruptionBudget
 metadata:
   name: {{ include "loki.fullname" . }}-memcached-results-cache
-  namespace: {{ include "loki.namespace" . }}
+  namespace: {{ .Release.Namespace }}
   labels:
     {{- include "loki.selectorLabels" . | nindent 4 }}
     app.kubernetes.io/component: memcached-results-cache
@@ -13,8 +12,5 @@ spec:
     matchLabels:
       {{- include "loki.selectorLabels" . | nindent 6 }}
       app.kubernetes.io/component: memcached-results-cache
-  {{- with .Values.resultsCache.maxUnavailable }}
-  maxUnavailable: {{ . }}
-  {{- end -}}
+  maxUnavailable: 1
 {{- end -}}
-{{- end }}

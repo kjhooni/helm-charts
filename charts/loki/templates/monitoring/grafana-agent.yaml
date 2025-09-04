@@ -4,7 +4,7 @@ apiVersion: monitoring.grafana.com/v1alpha1
 kind: GrafanaAgent
 metadata:
   name: {{ include "loki.fullname" $ }}
-  namespace: {{ include "loki.namespace" $ }}
+  namespace: {{ $.Release.Namespace }}
   labels:
     {{- include "loki.labels" $ | nindent 4 }}
     {{- with .labels }}
@@ -45,7 +45,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: {{ include "loki.fullname" $ }}-grafana-agent
-  namespace: {{ .namespace | default (include "loki.namespace" $) }}
+  namespace: {{ .namespace | default $.Release.Namespace }}
 
 ---
 
@@ -95,6 +95,6 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: {{ include "loki.fullname" $ }}-grafana-agent
-  namespace: {{ .namespace | default (include "loki.namespace" $) }}
+  namespace: {{ .namespace | default $.Release.Namespace }}
 {{- end}}
 {{- end}}

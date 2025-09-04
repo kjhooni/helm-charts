@@ -1,9 +1,8 @@
-{{- if and .Values.enterprise.enabled .Values.enterprise.adminApi.enabled }}
+{{- if .Values.enterprise.enabled }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ template "enterprise-logs.adminApiFullname" . }}
-  namespace: {{ include "loki.namespace" . }}
   labels:
     {{- include "enterprise-logs.adminApiLabels" . | nindent 4 }}
     {{- with .Values.adminApi.labels }}
@@ -21,13 +20,12 @@ spec:
       {{- include "enterprise-logs.adminApiSelectorLabels" . | nindent 6 }}
   strategy:
     {{- toYaml .Values.adminApi.strategy | nindent 4 }}
-  revisionHistoryLimit: {{ .Values.loki.revisionHistoryLimit }}  
   template:
     metadata:
       labels:
-        {{- include "enterprise-logs.adminApiLabels" . | nindent 8 }}
-        {{- with merge (dict) .Values.loki.podLabels .Values.adminApi.labels }}
-        {{- tpl (toYaml .) $ | nindent 8 }}
+        {{- include "enterprise-logs.adminApiSelectorLabels" . | nindent 8 }}
+        {{- with .Values.adminApi.labels }}
+        {{- toYaml . | nindent 8 }}
         {{- end }}
         app.kubernetes.io/part-of: memberlist
       annotations:
@@ -40,7 +38,7 @@ spec:
         {{- toYaml . | nindent 8 }}
         {{- end }}
     spec:
-      {{- if semverCompare ">=1.19-0" (include "loki.kubeVersion" .) }}
+      {{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.Version }}
       {{- with .Values.adminApi.topologySpreadConstraints }}
       topologySpreadConstraints:
         {{- toYaml . | nindent 8 }}
@@ -52,6 +50,27 @@ spec:
       {{- end }}
       securityContext:
         {{- toYaml .Values.adminApi.podSecurityContext | nindent 8 }}
+      initContainers:
+        # Taken from
+        # https://github.com/minio/charts/blob/a5c84bcbad884728bff5c9c23541f936d57a13b3/minio/templates/post-install-create-bucket-job.yaml
+      {{- if .Values.minio.enabled }}
+        - name: minio-mc
+          image: "{{ .Values.minio.mcImage.repository }}:{{ .Values.minio.mcImage.tag }}"
+          imagePullPolicy: {{ .Values.minio.mcImage.pullPolicy }}
+          command: ["/bin/sh", "/config/initialize"]
+          env:
+            - name: MINIO_ENDPOINT
+              value: {{ .Release.Name }}-minio
+            - name: MINIO_PORT
+              value: {{ .Values.minio.service.port | quote }}
+          volumeMounts:
+            - name: minio-configuration
+              mountPath: /config
+          {{- if .Values.minio.tls.enabled }}
+            - name: cert-secret-volume-mc
+              mountPath: {{ .Values.minio.configPathmc }}certs
+          {{ end }}
+        {{- end }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -59,9 +78,6 @@ spec:
       {{- with .Values.adminApi.hostAliases }}
       hostAliases:
         {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- if and (semverCompare ">=1.33-0" (include "loki.kubeVersion" .)) (kindIs "bool" .Values.adminApi.hostUsers) }}
-      hostUsers: {{ .Values.adminApi.hostUsers }}
       {{- end }}
       containers:
         - name: admin-api
@@ -73,10 +89,10 @@ spec:
             {{- if .Values.minio.enabled }}
             - -admin.client.backend-type=s3
             - -admin.client.s3.endpoint={{ template "loki.minio" . }}
-            - -admin.client.s3.bucket-name={{ .Values.loki.storage.bucketNames.admin }}
-            - -admin.client.s3.access-key-id={{ (index .Values.minio.users 0).accessKey }}
-            - -admin.client.s3.secret-access-key={{ (index .Values.minio.users 0).secretKey }}
-            - -admin.client.s3.insecure={{ .Values.loki.storage.s3.insecure }}
+            - -admin.client.s3.bucket-name=enterprise-logs-admin
+            - -admin.client.s3.access-key-id={{ .Values.minio.accessKey }}
+            - -admin.client.s3.secret-access-key={{ .Values.minio.secretKey }}
+            - -admin.client.s3.insecure=true
             {{- end }}
             {{- range $key, $value := .Values.adminApi.extraArgs }}
             - "-{{ $key }}={{ $value }}"
@@ -101,27 +117,17 @@ spec:
             - name: http-memberlist
               containerPort: 7946
               protocol: TCP
-          {{- with .Values.adminApi.livenessProbe }}
-          livenessProbe:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-          {{- with .Values.adminApi.readinessProbe }}
           readinessProbe:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-          {{- with .Values.adminApi.startupProbe }}
-          startupProbe:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
+            {{- toYaml .Values.adminApi.readinessProbe | nindent 12 }}
           resources:
             {{- toYaml .Values.adminApi.resources | nindent 12 }}
           securityContext:
             {{- toYaml .Values.adminApi.containerSecurityContext | nindent 12 }}
-          {{- with (concat .Values.global.extraEnv .Values.adminApi.extraEnv) | uniq }}
           env:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-          {{- with (concat .Values.global.extraEnvFrom .Values.adminApi.extraEnvFrom) | uniq }}
+            {{- if .Values.adminApi.env }}
+            {{ toYaml .Values.adminApi.env | nindent 12 }}
+            {{- end }}
+          {{- with .Values.adminApi.extraEnvFrom }}
           envFrom:
             {{- toYaml . | nindent 12 }}
           {{- end }}

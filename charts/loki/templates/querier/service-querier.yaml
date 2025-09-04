@@ -4,7 +4,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ include "loki.querierFullname" . }}
-  namespace: {{ include "loki.namespace" . }}
+  namespace: {{ .Release.Namespace }}
   labels:
     {{- include "loki.querierLabels" . | nindent 4 }}
     {{- with .Values.querier.serviceLabels }}
@@ -18,7 +18,7 @@ metadata:
     {{- toYaml . | nindent 4}}
     {{- end }}
 spec:
-  type: {{ .Values.querier.serviceType }}
+  type: ClusterIP
   ports:
     - name: http-metrics
       port: 3100

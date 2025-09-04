@@ -5,7 +5,7 @@ apiVersion: {{ .apiVersion }}
 kind: PodLogs
 metadata:
   name: {{ include "loki.fullname" $ }}
-  namespace: {{ include "loki.namespace" $ }}
+  namespace: {{ $.Release.Namespace }}
   {{- with .annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
@@ -54,7 +54,7 @@ spec:
     {{- end }}
   namespaceSelector:
     matchNames:
-      - {{ include "loki.namespace" $ }}
+      - {{ $.Release.Namespace }}
   selector:
     matchLabels:
       {{- include "loki.selectorLabels" $ | nindent 6 }}

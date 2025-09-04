@@ -2,12 +2,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "rollout-operator.fullname" . }}
-  namespace: {{ .Release.Namespace | quote }}
   labels:
     {{- include "rollout-operator.labels" . | nindent 4 }}
 spec:
   replicas: 1
-  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
   minReadySeconds: {{ .Values.minReadySeconds }}
   selector:
     matchLabels:
@@ -22,7 +20,6 @@ spec:
       annotations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      namespace: {{ .Release.Namespace | quote }}
       labels:
         {{- include "rollout-operator.selectorLabels" . | nindent 8 }}
         {{- with .Values.podLabels }}
@@ -51,9 +48,6 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           args:
           - -kubernetes.namespace={{ .Release.Namespace }}
-          {{- range .Values.extraArgs  }}
-          - {{ . }}
-          {{- end }}
           ports:
             - name: http-metrics
               containerPort: 8001

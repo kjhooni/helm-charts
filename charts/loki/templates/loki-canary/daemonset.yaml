@@ -2,29 +2,19 @@
 {{- if .enabled -}}
 ---
 apiVersion: apps/v1
-kind: {{ .kind }}
+kind: DaemonSet
 metadata:
   name: {{ include "loki-canary.fullname" $ }}
-  namespace: {{ include "loki.namespace" $ }}
+  namespace: {{ $.Release.Namespace }}
   labels:
     {{- include "loki-canary.labels" $ | nindent 4 }}
 spec:
   selector:
     matchLabels:
       {{- include "loki-canary.selectorLabels" $ | nindent 6 }}
-  
-  {{- if eq .kind "Deployment" }}
-  replicas: 1
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxUnavailable: 1
-  revisionHistoryLimit: {{ $.Values.loki.revisionHistoryLimit }}
-  {{- else }}
   {{- with .updateStrategy }}
   updateStrategy:
     {{- toYaml . | nindent 4 }}
-  {{- end }}
   {{- end }}
   template:
     metadata:
@@ -44,9 +34,6 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- include "loki-canary.priorityClassName" $ | nindent 6 }}
-      {{- if and (semverCompare ">=1.33-0" (include "loki.kubeVersion" $)) (kindIs "bool" .hostUsers) }}
-      hostUsers: {{ .hostUsers }}
-      {{- end }}
       securityContext:
         {{- toYaml $.Values.loki.podSecurityContext | nindent 8 }}
       containers:
@@ -54,7 +41,7 @@ spec:
           image: {{ include "loki-canary.image" $ }}
           imagePullPolicy: {{ $.Values.loki.image.pullPolicy }}
           args:
-            - -addr={{- default (include "loki.host" $) .lokiurl }}
+            - -addr={{- include "loki.host" $ }}
             - -labelname={{ .labelname }}
             - -labelvalue=$(POD_NAME)
             {{- if $.Values.enterprise.enabled }}
@@ -126,10 +113,6 @@ spec:
       {{- end }}
       {{- with .tolerations }}
       tolerations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .affinity }}
-      affinity:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       volumes:

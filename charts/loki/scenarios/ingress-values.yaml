@@ -12,9 +12,6 @@ loki:
   commonConfig:
     replication_factor: 1
   useTestSchema: true
-  podAnnotations:
-    prometheus.io/scrape: "true"
-    prometheus.io/port: "3100"
   storage:
     bucketNames:
       chunks: chunks

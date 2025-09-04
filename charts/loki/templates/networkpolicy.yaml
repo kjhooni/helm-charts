@@ -4,7 +4,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: {{ include "loki.name" . }}-namespace-only
-  namespace: {{ include "loki.namespace" . }}
+  namespace: {{ $.Release.Namespace }}
   labels:
     {{- include "loki.labels" . | nindent 4 }}
 spec:
@@ -24,7 +24,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: {{ include "loki.name" . }}-egress-dns
-  namespace: {{ include "loki.namespace" . }}
+  namespace: {{ $.Release.Namespace }}
   labels:
     {{- include "loki.labels" . | nindent 4 }}
 spec:
@@ -45,7 +45,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: {{ include "loki.name" . }}-ingress
-  namespace: {{ include "loki.namespace" . }}
+  namespace: {{ $.Release.Namespace }}
   labels:
     {{- include "loki.labels" . | nindent 4 }}
 spec:
@@ -83,7 +83,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: {{ include "loki.name" . }}-ingress-metrics
-  namespace: {{ include "loki.namespace" . }}
+  namespace: {{ $.Release.Namespace }}
   labels:
     {{- include "loki.labels" . | nindent 4 }}
 spec:
@@ -96,7 +96,7 @@ spec:
     - ports:
         - port: http-metrics
           protocol: TCP
-    {{- if or .Values.networkPolicy.metrics.cidrs .Values.networkPolicy.metrics.namespaceSelector }}
+    {{- if .Values.networkPolicy.metrics.cidrs }}
       from:
       {{- range $cidr := .Values.networkPolicy.metrics.cidrs }}
         - ipBlock:
@@ -117,7 +117,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: {{ include "loki.name" . }}-egress-alertmanager
-  namespace: {{ include "loki.namespace" $ }}
+  namespace: {{ $.Release.Namespace }}
   labels:
     {{- include "loki.labels" . | nindent 4 }}
 spec:
@@ -146,7 +146,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: {{ include "loki.name" . }}-egress-external-storage
-  namespace: {{ include "loki.namespace" $ }}
+  namespace: {{ $.Release.Namespace }}
   labels:
     {{- include "loki.labels" . | nindent 4 }}
 spec:
@@ -178,7 +178,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: {{ include "loki.name" . }}-egress-discovery
-  namespace: {{ include "loki.namespace" $ }}
+  namespace: {{ $.Release.Namespace }}
   labels:
     {{- include "loki.labels" . | nindent 4 }}
 spec:

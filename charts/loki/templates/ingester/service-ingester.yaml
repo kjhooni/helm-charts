@@ -1,10 +1,10 @@
 {{- $isDistributed := eq (include "loki.deployment.isDistributed" .) "true" -}}
-{{- if $isDistributed }}
+{{- if and $isDistributed (or (not .Values.ingester.zoneAwareReplication.enabled) .Values.ingester.zoneAwareReplication.migration.enabled) }}
 apiVersion: v1
 kind: Service
 metadata:
   name: {{ include "loki.ingesterFullname" . }}
-  namespace: {{ include "loki.namespace" . }}
+  namespace: {{ .Release.Namespace }}
   labels:
     {{- include "loki.ingesterLabels" . | nindent 4 }}
     {{- with .Values.ingester.serviceLabels }}
@@ -18,7 +18,7 @@ metadata:
     {{- toYaml . | nindent 4}}
     {{- end }}
 spec:
-  type: {{ .Values.ingester.serviceType }}
+  type: ClusterIP
   ports:
     - name: http-metrics
       port: 3100
