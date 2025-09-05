@@ -57,10 +57,10 @@ loki.source.stdout "alloy_stdout" {
 //파일 로그 수집 (promtail 역할)
 loki.source.file "varlogs" {
   targets = [
-    { __path__ = "/var/log/*.log", }
+    { __path__ = "/var/log/*.log" }  // 마지막 쉼표 제거
   ]
   labels = {
-    job = "alloy",
+    job  = "alloy",
     host = "${HOSTNAME}",
   }
   forward_to = [loki.write.default.receiver]
