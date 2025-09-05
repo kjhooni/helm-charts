@@ -401,6 +401,7 @@ schedulerName: ""
 # only used with deployment mode
 replicaCount: 1
 
+# only used with deployment mode
 revisionHistoryLimit: 10
 
 annotations: {}
@@ -514,7 +515,7 @@ service:
   # However, to enable it on mode = daemonset, its creation must be explicitly enabled
   # enabled: true
 
-  type: ClusterIP
+  type: NodePort
   # trafficDistribution: PreferClose
   # type: LoadBalancer
   # loadBalancerIP: 1.2.3.4
