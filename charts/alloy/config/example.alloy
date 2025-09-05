@@ -3,7 +3,7 @@ logging {
   format = "logfmt"
 }
 
-// Kubernetes discovery
+// Kubernetes 리소스 디스커버리
 discovery.kubernetes "pods" {
   role = "pod"
 }
@@ -12,20 +12,23 @@ discovery.kubernetes "nodes" {
   role = "node"
 }
 
-// OTLP receiver
-otelcol.receiver.otlp "default" {
-  protocols {
-    grpc {}
-    http {}
-  }
+discovery.kubernetes "services" {
+  role = "service"
 }
 
-// Loki exporter
-otelcol.exporter.loki "default" {
-  forward_to = [loki.write.default.receiver]
+discovery.kubernetes "endpoints" {
+  role = "endpoints"
 }
 
-// Loki write endpoint
+discovery.kubernetes "endpointslices" {
+  role = "endpointslice"
+}
+
+discovery.kubernetes "ingresses" {
+  role = "ingress"
+}
+
+// Loki 쓰기 설정
 loki.write "default" {
   endpoint {
     url = "http://loki-write.new-lgtm.svc.cluster.local:3100/loki/api/v1/push"
