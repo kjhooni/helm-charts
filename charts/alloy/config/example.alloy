@@ -46,7 +46,14 @@ loki.write "default" {
     url = "http://loki-write.new-lgtm.svc.cluster.local:3100/loki/api/v1/push"
   }
 }
-
+# stdout 로그를 Loki로 바로 수집
+loki.source.stdout "alloy-stdout" {
+  labels = {
+    job  = "alloy"
+    host = "${HOSTNAME}"
+  }
+  forward_to = [loki.write.default.receiver]
+}
 # 파일 로그 수집 (promtail 역할)
 loki.source.file "varlogs" {
   targets = [
