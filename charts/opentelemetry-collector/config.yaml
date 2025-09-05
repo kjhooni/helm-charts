@@ -14,7 +14,7 @@ processors:
 
 exporters:
   loki:
-    endpoint: http://loki-write.lgtm.svc.cluster.local:3100/loki/api/v1/push
+    endpoint: http://loki-write.new-lgtm.svc.cluster.local:3100/loki/api/v1/push
 
 service:
   pipelines:
