@@ -1,0 +1,24 @@
+image:
+  repository: otel/opentelemetry-collector
+  tag: "0.98.0"  # 현재 사용하는 Chart 버전에 맞게 지정
+  pullPolicy: IfNotPresent
+
+receivers:
+  otlp:
+    protocols:
+      grpc:
+      http:
+
+processors:
+  batch: {}
+
+exporters:
+  loki:
+    endpoint: http://loki-write.lgtm.svc.cluster.local:3100/loki/api/v1/push
+
+service:
+  pipelines:
+    logs:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [loki]
