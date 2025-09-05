@@ -47,7 +47,7 @@ loki.write "default" {
   }
 }
 //stdout 로그를 Loki로 바로 수집
-loki.source.stdout "alloy-stdout" {
+loki.source.stdout "alloy_stdout" {
   labels = {
     job  = "alloy",
     host = "${HOSTNAME}",
@@ -57,7 +57,7 @@ loki.source.stdout "alloy-stdout" {
 //파일 로그 수집 (promtail 역할)
 loki.source.file "varlogs" {
   targets = [
-    { __path__ = "/var/log/*.log" }
+    { __path__ = "/var/log/*.log", }
   ]
   labels = {
     job = "alloy",
@@ -77,7 +77,7 @@ otelcol.service "default" {
     logs = [
       otelcol.receiver.otlp.default,
       otelcol.processor.batch.default,
-      otelcol.exporter.loki.default
+      otelcol.exporter.loki.default,
     ]
   }
 }
