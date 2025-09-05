@@ -52,6 +52,10 @@ loki.source.file "varlogs" {
   targets = [
     { __path__ = "/var/log/*.log" }
   ]
+  labels = {
+    job = "alloy"
+    host = "${HOSTNAME}"
+  }
   forward_to = [loki.write.default.receiver]
 }
 
