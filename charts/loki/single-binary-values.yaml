@@ -1,24 +1,5 @@
 ---
 loki:
-  auth_enabled: false
-
-  # config는 반드시 table 형태
-  config:
-    server:
-      http_listen_port: 3100
-      grpc_listen_port: 9095
-
-    ingester:
-      lifecycler:
-        ring:
-          kvstore:
-            store: memberlist
-
-    memberlist:
-      join_members: []
-
-  memberlistConfig: {}
-  extraMemberlistConfig: {}
   commonConfig:
     replication_factor: 1
   schemaConfig:
@@ -52,11 +33,11 @@ singleBinary:
   replicas: 1
   resources:
     limits:
-      cpu: 1
-      memory: 1Gi
+      cpu: 3
+      memory: 4Gi
     requests:
-      cpu: 1
-      memory: 1Gi
+      cpu: 2
+      memory: 2Gi
   extraEnv:
     # Keep a little bit lower than memory limits
     - name: GOMEMLIMIT

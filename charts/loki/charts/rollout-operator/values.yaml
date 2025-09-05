@@ -7,6 +7,8 @@ global:
   # -- Common labels for all object directly managed by this chart.
   commonLabels: {}
 
+# -- Number of old ReplicaSets to retain
+revisionHistoryLimit: 10
 
 image:
   repository: grafana/rollout-operator
@@ -50,6 +52,9 @@ securityContext: {}
   # readOnlyRootFilesystem: true
   # runAsNonRoot: true
   # runAsUser: 1000
+
+# -- List of additional CLI arguments to configure rollout-operator (example: `--log.level=info`)
+extraArgs: []
 
 resources:
   limits:
