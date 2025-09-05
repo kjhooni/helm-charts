@@ -1,6 +1,6 @@
-{{- if eq .Values.mode "statefulset" -}}
+{{- if eq .Values.mode "deployment" -}}
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: {{ include "opentelemetry-collector.fullname" . }}
   namespace: {{ template "opentelemetry-collector.namespace" . }}
@@ -13,22 +13,21 @@ metadata:
     {{- end }}
   {{- end }}
 spec:
-  serviceName: {{ include "opentelemetry-collector.fullname" . }}
-  podManagementPolicy: {{ .Values.statefulset.podManagementPolicy }}
 {{- if not .Values.autoscaling.enabled }}
-  replicas: {{ .Values.replicaCount }}
-{{- end }}
-{{- if .Values.statefulset.persistentVolumeClaimRetentionPolicy.enabled }}
-  persistentVolumeClaimRetentionPolicy:
-    whenDeleted: {{ .Values.statefulset.persistentVolumeClaimRetentionPolicy.whenDeleted }}
-    whenScaled: {{ .Values.statefulset.persistentVolumeClaimRetentionPolicy.whenScaled }}
+  replicas: {{ .Values.replicaCount | default 1 }}
 {{- end }}
   revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
   selector:
     matchLabels:
       {{- include "opentelemetry-collector.selectorLabels" . | nindent 6 }}
       {{- include "opentelemetry-collector.component" . | nindent 6 }}
-  updateStrategy:
+  strategy:
+    {{- if eq .Values.rollout.strategy "RollingUpdate" }}
+    {{- with .Values.rollout.rollingUpdate }}
+    rollingUpdate:
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
+    {{- end }}
     type: {{ .Values.rollout.strategy }}
   template:
     metadata:
@@ -47,12 +46,11 @@ spec:
       dnsConfig:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- with .Values.schedulerName }}
+      schedulerName: {{ . }}
+      {{- end }}
       {{- $podValues := deepCopy .Values }}
-      {{- $podData := dict "Values" $podValues "configmapSuffix" "-statefulset" "isAgent" false }}
+      {{- $podData := dict "Values" $podValues "configmapSuffix" "" "isAgent" false }}
       {{- include "opentelemetry-collector.pod" ($podData | mustMergeOverwrite (deepCopy .)) | nindent 6 }}
       hostNetwork: {{ .Values.hostNetwork }}
-  {{- with .Values.statefulset.volumeClaimTemplates }}
-  volumeClaimTemplates:
-  {{- toYaml . | nindent 2 }}
-  {{- end }}
 {{- end }}
