@@ -49,8 +49,8 @@ loki.write "default" {
 //stdout 로그를 Loki로 바로 수집
 loki.source.stdout "alloy-stdout" {
   labels = {
-    job  = "alloy"
-    host = "${HOSTNAME}"
+    job  = "alloy",
+    host = "${HOSTNAME}",
   }
   forward_to = [loki.write.default.receiver]
 }
@@ -60,8 +60,8 @@ loki.source.file "varlogs" {
     { __path__ = "/var/log/*.log" }
   ]
   labels = {
-    job = "alloy"
-    host = "${HOSTNAME}"
+    job = "alloy",
+    host = "${HOSTNAME}",
   }
   forward_to = [loki.write.default.receiver]
 }
