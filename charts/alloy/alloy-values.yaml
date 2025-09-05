@@ -23,6 +23,16 @@ alloy:
           }
         }
 
+        # 🔽 추가: 파일 로그 수집
+        loki.source.file "varlogs" {
+          targets = [
+            {
+              __path__ = "/var/log/*.log"
+            },
+          ]
+          forward_to = [loki.write.default.receiver]
+        }
+
         otelcol.exporter.loki "default" {
           forward_to = [loki.write.default.receiver]
         }
