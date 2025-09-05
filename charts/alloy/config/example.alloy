@@ -1,10 +1,9 @@
-// 로깅 설정
 logging {
   level  = "info"
   format = "logfmt"
 }
 
-// Kubernetes 리소스 디스커버리
+// Kubernetes discovery
 discovery.kubernetes "pods" {
   role = "pod"
 }
@@ -13,23 +12,7 @@ discovery.kubernetes "nodes" {
   role = "node"
 }
 
-discovery.kubernetes "services" {
-  role = "service"
-}
-
-discovery.kubernetes "endpoints" {
-  role = "endpoints"
-}
-
-discovery.kubernetes "endpointslices" {
-  role = "endpointslice"
-}
-
-discovery.kubernetes "ingresses" {
-  role = "ingress"
-}
-
-// OTLP 리시버 (외부에서 push되는 로그/트레이스 수신)
+// OTLP receiver
 otelcol.receiver.otlp "default" {
   protocols {
     grpc {}
@@ -37,45 +20,14 @@ otelcol.receiver.otlp "default" {
   }
 }
 
-//배치 프로세서
-otelcol.processor.batch "default" {}
-
-//Loki write (실제 push 대상)
-loki.write "default" {
-  endpoint {
-    url = "http://loki-write.new-lgtm.svc.cluster.local:3100/loki/api/v1/push"
-  }
-}
-//stdout 로그를 Loki로 바로 수집
-loki.source.stdout "alloy_stdout" {
-  labels = {
-    job  = "alloy",
-    host = "${HOSTNAME}",
-  }
-  forward_to = [loki.write.default.receiver]
-}
-//파일 로그 수집 (promtail 역할)
-loki.source.file "varlogs" {
-  targets = ["/var/log/*.log"]  // 배열 안 문자열
-  labels = {
-    job  = "alloy",
-    host = "${HOSTNAME}",
-  }
-  forward_to = [loki.write.default.receiver]
-}
-
-//Loki exporter
+// Loki exporter
 otelcol.exporter.loki "default" {
   forward_to = [loki.write.default.receiver]
 }
 
-//파이프라인 정의
-otelcol.service "default" {
-  pipelines {
-    logs = [
-      otelcol.receiver.otlp.default,
-      otelcol.processor.batch.default,
-      otelcol.exporter.loki.default,
-    ]
+// Loki write endpoint
+loki.write "default" {
+  endpoint {
+    url = "http://loki-write.new-lgtm.svc.cluster.local:3100/loki/api/v1/push"
   }
 }
