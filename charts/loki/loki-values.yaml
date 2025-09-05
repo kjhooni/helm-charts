@@ -33,10 +33,10 @@
       type: s3
       s3:
         s3: null
-        endpoint: http://minio.lgtm.svc.cluster.local:9000
+        endpoint: http://new-minio.new-lgtm.svc.cluster.local:9000
         region: dummy
-        secretAccessKey: minioadmin
-        accessKeyId: minioadmin
+        secretAccessKey: HTfcF2waO5kCm7W7HxGaeD8MKOYba0Y4S5KBR2x9
+        accessKeyId: tq5CBo9EEcld6752NwSd
         s3ForcePathStyle: true
         insecure: true
 
@@ -51,25 +51,25 @@
     replicas: 1 # To ensure data durability with replication
 
   # Enable minio for storage
-  storage_config:
-    aws:
-      region: eu-west-2
-      bucketnames: loki-chunk
-      s3forcepathstyle: false
-  storage:
-    bucketNames:
-        chunks: loki-chunks
-        ruler: loki-ruler
-        admin: loki-admin
-    type: s3
-    s3:
-      s3: null
-      endpoint: http://minio.lgtm.svc.cluster.local:9000
-      region: dummy
-        #secretAccessKey: 6PGWlBj9eTROb1IoAsIaSHzRIHJU9SDaieAku9yD
-        #accessKeyId: ZbhqfXcK79BoEbIfM9mz
-      s3ForcePathStyle: true
-      insecure: true
+  # storage_config:
+  #   aws:
+  #     region: eu-west-2
+  #     bucketnames: loki-chunk
+  #     s3forcepathstyle: false
+  # storage:
+  #   bucketNames:
+  #       chunks: loki-chunks
+  #       ruler: loki-ruler
+  #       admin: loki-admin
+  #   type: s3
+  #   s3:
+  #     s3: null
+  #     endpoint: http://minio.lgtm.svc.cluster.local:9000
+  #     region: dummy
+  #       #secretAccessKey: 6PGWlBj9eTROb1IoAsIaSHzRIHJU9SDaieAku9yD
+  #       #accessKeyId: ZbhqfXcK79BoEbIfM9mz
+  #     s3ForcePathStyle: true
+  #     insecure: true
   minio:
     enabled: false
 
