@@ -40,13 +40,13 @@ otelcol.receiver.otlp "default" {
 //배치 프로세서
 otelcol.processor.batch "default" {}
 
-// Loki write (실제 push 대상)
+//Loki write (실제 push 대상)
 loki.write "default" {
   endpoint {
     url = "http://loki-write.new-lgtm.svc.cluster.local:3100/loki/api/v1/push"
   }
 }
-// stdout 로그를 Loki로 바로 수집
+//stdout 로그를 Loki로 바로 수집
 loki.source.stdout "alloy-stdout" {
   labels = {
     job  = "alloy"
@@ -54,7 +54,7 @@ loki.source.stdout "alloy-stdout" {
   }
   forward_to = [loki.write.default.receiver]
 }
-// 파일 로그 수집 (promtail 역할)
+//파일 로그 수집 (promtail 역할)
 loki.source.file "varlogs" {
   targets = [
     { __path__ = "/var/log/*.log" }
@@ -66,12 +66,12 @@ loki.source.file "varlogs" {
   forward_to = [loki.write.default.receiver]
 }
 
-// Loki exporter
+//Loki exporter
 otelcol.exporter.loki "default" {
   forward_to = [loki.write.default.receiver]
 }
 
-// 파이프라인 정의
+//파이프라인 정의
 otelcol.service "default" {
   pipelines {
     logs = [
