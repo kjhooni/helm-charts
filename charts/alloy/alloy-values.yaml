@@ -1,0 +1,38 @@
+alloy:
+  configMap:
+    create: true
+    data:
+      config.alloy: |
+        logging {
+          level = "info"
+          format = "logfmt"
+        }
+
+        otelcol.receiver.otlp "default" {
+          protocols {
+            grpc {}
+            http {}
+          }
+        }
+
+        otelcol.processor.batch "default" {}
+
+        loki.write "default" {
+          endpoint {
+            url = "http://loki-write.new-lgtm.svc.cluster.local:3100/loki/api/v1/push"
+          }
+        }
+
+        otelcol.exporter.loki "default" {
+          forward_to = [loki.write.default.receiver]
+        }
+
+        otelcol.service "default" {
+          pipelines {
+            logs = [
+              otelcol.receiver.otlp.default,
+              otelcol.processor.batch.default,
+              otelcol.exporter.loki.default,
+            ]
+          }
+        }
