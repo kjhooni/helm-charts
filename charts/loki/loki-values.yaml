@@ -50,7 +50,7 @@
   backend:
     replicas: 1
   read:
-    replicas: 1
+    replicas: 2
   write:
     replicas: 1 # To ensure data durability with replication
 
