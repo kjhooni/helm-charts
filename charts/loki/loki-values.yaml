@@ -1,4 +1,8 @@
   loki:
+  
+    memberlist:
+      joinMembers:
+        - loki-memberlist
     schemaConfig:
       configs:
         - from: "2024-04-01"
