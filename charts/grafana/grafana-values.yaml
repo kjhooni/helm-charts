@@ -3,4 +3,4 @@ persistence:
 
 service:
   type: NodePort
-  nodePort: 31080
+  nodePort: 31180
