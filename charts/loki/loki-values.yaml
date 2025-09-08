@@ -23,11 +23,11 @@
       allow_structured_metadata: true
       volume_enabled: true
 
-    storage_config:
-      aws:
-        region: eu-west-2
-        bucketnames: loki-chunk
-        s3forcepathstyle: false
+    # storage_config:
+    #   aws:
+    #     region: eu-west-2
+    #     bucketnames: loki-chunk
+    #     s3forcepathstyle: false
 
     storage:
       bucketNames:
