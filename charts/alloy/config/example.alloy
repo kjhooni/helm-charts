@@ -3,6 +3,24 @@ local.file_match "local_files" {
      sync_period = "5s"
 }
 
+local.file_match "tomcat_logs" {
+  path_targets = [
+    { "__path__" = "/opt/bitnami/tomcat/logs/localhost_access_log.*.txt" },
+    { "__path__" = "/opt/bitnami/tomcat/logs/catalina.*.log" },
+    { "__path__" = "/opt/bitnami/tomcat/logs/localhost.*.log" },
+  ]
+  sync_period = "5s"
+}
+
+loki.source.file "tomcat_scrape" {
+  targets       = local.file_match.tomcat_logs.targets
+  tail_from_end = false
+  labels = {
+    "app" = "tomcat"
+  }
+  forward_to    = [loki.write.grafana_loki]
+}
+
 loki.source.file "log_scrape" {
     targets    = local.file_match.local_files.targets
     forward_to = [loki.process.filter_logs.receiver]
