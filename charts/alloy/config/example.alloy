@@ -19,13 +19,10 @@ loki.process "filter_logs" {
 }
 
 loki.write "grafana_loki" {
-    endpoint {
-      url = "http://loki-write.new-lgtm.svc.cluster.local:3100/loki/api/v1/push"
-      //url = "http://localhost:3100/loki/api/v1/push"
-
-      // basic_auth {
-      //  username = "admin"
-      //  password = "admin"
-      // }
+  endpoint {
+    url = "http://loki-write.new-lgtm.svc.cluster.local:3100/loki/api/v1/push"
+    headers = {
+      "X-Scope-OrgID" = "1"
     }
+  }
 }
