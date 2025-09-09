@@ -15,9 +15,6 @@ local.file_match "tomcat_logs" {
 loki.source.file "tomcat_scrape" {
   targets       = local.file_match.tomcat_logs.targets
   tail_from_end = false
-  labels = {
-    "app" = "tomcat",
-  }
   forward_to    = [loki.write.grafana_loki.receiver]
 }
 
@@ -25,6 +22,15 @@ loki.source.file "log_scrape" {
     targets    = local.file_match.local_files.targets
     forward_to = [loki.process.filter_logs.receiver]
     tail_from_end = false
+}
+
+loki.process "tomcat_labeler" {
+  stage.static_labels {
+    values = {
+      app = "tomcat"
+    }
+  }
+  forward_to = [loki.write.grafana_loki.receiver]
 }
 
 loki.process "filter_logs" {
