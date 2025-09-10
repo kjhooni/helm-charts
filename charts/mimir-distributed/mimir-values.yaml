@@ -22,7 +22,6 @@ mimir:
       bucket_store:
         sync_dir: /data/tsdb-sync
       s3:
-        region: zzman
         endpoint: http://new-minio.new-lgtm.svc.cluster.local:9000
         bucket_name: mimir-blocks
         http:
@@ -34,7 +33,6 @@ mimir:
     alertmanager_storage:
       backend: s3
       s3:
-        region: zzman
         endpoint: http://new-minio.new-lgtm.svc.cluster.local:9000
         bucket_name: mimir-alertmanager
         http:
@@ -46,7 +44,6 @@ mimir:
     ruler_storage:
       backend: s3
       s3:
-        region: zzman
         endpoint: http://new-minio.new-lgtm.svc.cluster.local:9000
         bucket_name: mimir-ruler
         http:
