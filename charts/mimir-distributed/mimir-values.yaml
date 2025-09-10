@@ -32,7 +32,7 @@ mimir:
         bucket_name: mimir-blocks
         http:
           insecure_skip_verify: true
-        insecure: false
+        insecure: true
         secret_access_key: HTfcF2waO5kCm7W7HxGaeD8MKOYba0Y4S5KBR2x9
         access_key_id: tq5CBo9EEcld6752NwSd
 
@@ -43,7 +43,7 @@ mimir:
         bucket_name: mimir-alertmanager
         http:
           insecure_skip_verify: true
-        insecure: false
+        insecure: true
         secret_access_key: HTfcF2waO5kCm7W7HxGaeD8MKOYba0Y4S5KBR2x9
         access_key_id: tq5CBo9EEcld6752NwSd
 
@@ -54,7 +54,7 @@ mimir:
         bucket_name: mimir-ruler
         http:
           insecure_skip_verify: true
-        insecure: false
+        insecure: true
         secret_access_key: HTfcF2waO5kCm7W7HxGaeD8MKOYba0Y4S5KBR2x9
         access_key_id: tq5CBo9EEcld6752NwSd
 
