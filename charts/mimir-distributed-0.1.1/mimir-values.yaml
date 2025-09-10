@@ -1,0 +1,69 @@
+mimir:
+  structuredConfig:
+    # common:
+    #   storage:
+    #     backend: s3
+    #     s3:
+    #       endpoint: http://new-minio.new-lgtm.svc.cluster.local:9000
+    #       region: zzman
+    #       secret_access_key: HTfcF2waO5kCm7W7HxGaeD8MKOYba0Y4S5KBR2x9 # This is a secret injected via an environment variable
+    #       access_key_id: tq5CBo9EEcld6752NwSd # This is a secret injected via an environment variable
+
+    distributor:
+      ring:
+        # heartbeat_period: 1m
+        # heartbeat_timeout: 4m
+        instance_addr: ${POD_ID}
+    memberlist:
+      abort_if_cluster_join_fails: false
+      bind_addr:
+      - ${MY_POD_IP}
+      compression_enabled: false
+      join_members:
+      - mimir-gossip-ring:7946
+      - dns+mimir-gossip-ring.serengeti-mimir-prom.svc.cluster.local.:7946
+
+    blocks_storage:
+      backend: s3
+      bucket_store:
+        sync_dir: /data/tsdb-sync
+      s3:
+        endpoint: http://new-minio.new-lgtm.svc.cluster.local:9000
+        bucket_name: mimir-blocks
+        http:
+          insecure_skip_verify: true
+        insecure: true
+        secret_access_key: HTfcF2waO5kCm7W7HxGaeD8MKOYba0Y4S5KBR2x9
+        access_key_id: tq5CBo9EEcld6752NwSd
+
+    alertmanager_storage:
+      backend: s3
+      s3:
+        endpoint: http://new-minio.new-lgtm.svc.cluster.local:9000
+        bucket_name: mimir-alertmanager
+        http:
+          insecure_skip_verify: true
+        insecure: true
+        secret_access_key: HTfcF2waO5kCm7W7HxGaeD8MKOYba0Y4S5KBR2x9
+        access_key_id: tq5CBo9EEcld6752NwSd
+
+    ruler_storage:
+      backend: s3
+      s3:
+        endpoint: http://new-minio.new-lgtm.svc.cluster.local:9000
+        bucket_name: mimir-ruler
+        http:
+          insecure_skip_verify: true
+        insecure: true
+        secret_access_key: HTfcF2waO5kCm7W7HxGaeD8MKOYba0Y4S5KBR2x9
+        access_key_id: tq5CBo9EEcld6752NwSd
+
+minio:
+  enabled: false
+
+# global:
+#   extraEnv:
+#     - name: MY_POD_IP
+#       valueFrom:
+#         fieldRef:
+#           fieldPath: status.podIP
