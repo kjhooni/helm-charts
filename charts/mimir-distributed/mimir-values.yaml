@@ -1,28 +1,34 @@
 mimir:
   structuredConfig:
-    common:
-      storage:
-        backend: s3
-        s3:
-          endpoint: http://new-minio.new-lgtm.svc.cluster.local:9000
-          region: zzman
-          secret_access_key: HTfcF2waO5kCm7W7HxGaeD8MKOYba0Y4S5KBR2x9 # This is a secret injected via an environment variable
-          access_key_id: tq5CBo9EEcld6752NwSd # This is a secret injected via an environment variable
+    # common:
+    #   storage:
+    #     backend: s3
+    #     s3:
+    #       endpoint: http://new-minio.new-lgtm.svc.cluster.local:9000
+    #       region: zzman
+    #       secret_access_key: HTfcF2waO5kCm7W7HxGaeD8MKOYba0Y4S5KBR2x9 # This is a secret injected via an environment variable
+    #       access_key_id: tq5CBo9EEcld6752NwSd # This is a secret injected via an environment variable
 
     blocks_storage:
       s3:
+        region: zzman
+        endpoint: http://new-minio.new-lgtm.svc.cluster.local:9000
         bucket_name: mimir-blocks
         secret_access_key: HTfcF2waO5kCm7W7HxGaeD8MKOYba0Y4S5KBR2x9
         access_key_id: tq5CBo9EEcld6752NwSd
 
     alertmanager_storage:
       s3:
+        region: zzman
+        endpoint: http://new-minio.new-lgtm.svc.cluster.local:9000
         bucket_name: mimir-alertmanager
         secret_access_key: HTfcF2waO5kCm7W7HxGaeD8MKOYba0Y4S5KBR2x9
         access_key_id: tq5CBo9EEcld6752NwSd
 
     ruler_storage:
       s3:
+        region: zzman
+        endpoint: http://new-minio.new-lgtm.svc.cluster.local:9000
         bucket_name: mimir-ruler
         secret_access_key: HTfcF2waO5kCm7W7HxGaeD8MKOYba0Y4S5KBR2x9
         access_key_id: tq5CBo9EEcld6752NwSd
