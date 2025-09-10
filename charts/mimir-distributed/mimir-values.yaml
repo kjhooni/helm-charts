@@ -14,7 +14,7 @@ mimir:
       bind_addr:
         - ${MY_POD_IP}
       join_members:
-        - {{ include "mimir.fullname" . }}-gossip-ring:7946
+        - {{ include \"mimir.fullname\" . }}-gossip-ring:7946
 
 minio:
   enabled: false
