@@ -28,7 +28,7 @@ mimir:
         access_key_id: tq5CBo9EEcld6752NwSd
 
 minio:
-  enabled: true
+  enabled: false
 
 # global:
 #   extraEnv:
