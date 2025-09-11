@@ -30,15 +30,15 @@ mimir:
     #   - dns+mimir-gossip-ring.mimir.svc.cluster.local.:7946
     distributor:
       ring:
-        instance_addr: 0.0.0.0
+        instance_addr: "$(MY_POD_IP)"  # 문자열로 치환 가능
     memberlist:
       abort_if_cluster_join_fails: false
       bind_addr: 
-        - 0.0.0.0
+        - "$(MY_POD_IP)"       # 단일 문자열
       compression_enabled: false
       join_members:
-      - mimir-gossip-ring.mimir.svc.cluster.local:7946
-      - dns+mimir-gossip-ring.mimir.svc.cluster.local.:7946
+        - mimir-gossip-ring.mimir.svc.cluster.local:7946
+        - dns+mimir-gossip-ring.mimir.svc.cluster.local.:7946
 
     blocks_storage:
       backend: s3
