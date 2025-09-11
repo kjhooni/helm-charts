@@ -1,3 +1,16 @@
+ruler_query_frontend:
+  env:
+    - name: MY_POD_IP
+      valueFrom:
+        fieldRef:
+          fieldPath: status.podIP
+ruler:
+  env:
+    - name: MY_POD_IP
+      valueFrom:
+        fieldRef:
+          fieldPath: status.podIP
+
 store_gateway:
   env:
     - name: MY_POD_IP
