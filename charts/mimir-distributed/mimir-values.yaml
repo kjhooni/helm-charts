@@ -21,7 +21,7 @@ mimir:
       compression_enabled: false
       join_members:
       - mimir-gossip-ring:7946
-      - dns+mimir-gossip-ring.serengeti-mimir-prom.svc.cluster.local.:7946
+      - dns+mimir-gossip-ring.mimir.svc.cluster.local.:7946
 
     blocks_storage:
       backend: s3
