@@ -1,5 +1,7 @@
 local.file_match "local_files" {
-  path_targets = [{"__path__" = "/var/log/*.log"}]
+  path_targets = [
+    { "__path__" = "/var/log/*.log" }
+  ]
   sync_period = "5s"
 }
 
@@ -7,7 +9,7 @@ local.file_match "tomcat_logs" {
   path_targets = [
     { "__path__" = "/opt/bitnami/tomcat/logs/localhost_access_log.*.txt" },
     { "__path__" = "/opt/bitnami/tomcat/logs/catalina.*.log" },
-    { "__path__" = "/opt/bitnami/tomcat/logs/localhost.*.log" },
+    { "__path__" = "/opt/bitnami/tomcat/logs/localhost.*.log" }
   ]
   sync_period = "5s"
 }
@@ -19,34 +21,34 @@ loki.source.file "tomcat_scrape" {
 }
 
 loki.source.file "log_scrape" {
-    targets    = local.file_match.local_files.targets
-    forward_to = [loki.process.filter_logs.receiver]
-    tail_from_end = false
+  targets       = local.file_match.local_files.targets
+  tail_from_end = false
+  forward_to    = [loki.process.filter_logs.receiver]
 }
 
 loki.process "tomcat_labeler" {
   stage.static_labels {
     values = {
-      "app" = "tomcat",
+      app = "tomcat"
     }
   }
   forward_to = [loki.write.grafana_loki.receiver]
 }
 
 loki.process "filter_logs" {
-    stage.drop {
-        source = ""
-        expression  = ".*Connection closed by authenticating user root"
-        drop_counter_reason = "noisy"
-      }
-    forward_to = [loki.write.grafana_loki.receiver]
+  stage.drop {
+    source               = ""
+    expression           = ".*Connection closed by authenticating user root"
+    drop_counter_reason  = "noisy"
+  }
+  forward_to = [loki.write.grafana_loki.receiver]
 }
 
 loki.write "grafana_loki" {
   endpoint {
     url = "http://loki-write.new-lgtm.svc.cluster.local:3100/loki/api/v1/push"
     headers = {
-      "X-Scope-OrgID" = "1",
+      "X-Scope-OrgID" = "1"
     }
   }
 }
@@ -73,10 +75,9 @@ prometheus.remote_write "to_mimir" {
   endpoint {
     url = "http://mimir-distributor.mimir.svc.cluster.local:8080/api/v1/push"
   }
-
-  // optional: 인증이 필요한 경우 추가
-  // basic_auth {
-  //   username = "my-user"
-  //   password = "my-pass"
-  // }
+  # 인증이 필요한 경우 주석 해제
+  # basic_auth {
+  #   username = "my-user"
+  #   password = "my-pass"
+  # }
 }
