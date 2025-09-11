@@ -1,3 +1,9 @@
+distributor:
+  extraEnv:
+    - name: MY_POD_IP
+      valueFrom:
+        fieldRef:
+          fieldPath: status.podIP
 mimir:
   structuredConfig:
     # common:
@@ -11,11 +17,6 @@ mimir:
 
     
     distributor:
-      extraEnv:
-        - name: MY_POD_IP
-          valueFrom:
-            fieldRef:
-              fieldPath: status.podIP
       ring:
         # heartbeat_period: 1m
         # heartbeat_timeout: 4m
