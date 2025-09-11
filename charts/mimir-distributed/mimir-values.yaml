@@ -1,4 +1,4 @@
-ruler_query_frontend:
+query_frontend:
   env:
     - name: MY_POD_IP
       valueFrom:
