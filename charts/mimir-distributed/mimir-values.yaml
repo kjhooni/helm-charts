@@ -16,14 +16,24 @@ mimir:
     #       access_key_id: tq5CBo9EEcld6752NwSd # This is a secret injected via an environment variable
 
     
+    # distributor:
+    #   ring:
+    #     # heartbeat_period: 1m
+    #     # heartbeat_timeout: 4m
+    #     instance_addr: ${MY_POD_IP}
+    # memberlist:
+    #   abort_if_cluster_join_fails: false
+    #   bind_addr: ${MY_POD_IP}
+    #   compression_enabled: false
+    #   join_members:
+    #   - mimir-gossip-ring.mimir.svc.cluster.local:7946
+    #   - dns+mimir-gossip-ring.mimir.svc.cluster.local.:7946
     distributor:
       ring:
-        # heartbeat_period: 1m
-        # heartbeat_timeout: 4m
-        instance_addr: ${MY_POD_IP}
+        instance_addr: 0.0.0.0
     memberlist:
       abort_if_cluster_join_fails: false
-      bind_addr: ${MY_POD_IP}
+      bind_addr: 0.0.0.0
       compression_enabled: false
       join_members:
       - mimir-gossip-ring.mimir.svc.cluster.local:7946
