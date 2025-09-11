@@ -1,9 +1,22 @@
-distributor:
-  extraEnv:
+ingester:
+  env:
     - name: MY_POD_IP
       valueFrom:
         fieldRef:
           fieldPath: status.podIP
+distributor:
+  env:
+    - name: MY_POD_IP
+      valueFrom:
+        fieldRef:
+          fieldPath: status.podIP
+querier:
+  env:
+    - name: MY_POD_IP
+      valueFrom:
+        fieldRef:
+          fieldPath: status.podIP
+
 mimir:
   structuredConfig:
     # common:
@@ -34,9 +47,9 @@ mimir:
         # instance_addr: "$(MY_POD_IP)"  # 문자열로 치환 가능
     memberlist:
       abort_if_cluster_join_fails: false
-      # bind_addr: 
-      #   - "$(MY_POD_IP)"       # 단일 문자열
       compression_enabled: false
+      bind_addr:
+      - ${MY_POD_IP}
       join_members:
         - mimir-gossip-ring.mimir.svc.cluster.local:7946
         - dns+mimir-gossip-ring.mimir.svc.cluster.local.:7946
