@@ -16,8 +16,7 @@ mimir:
         instance_addr: ${MY_POD_IP}
     memberlist:
       abort_if_cluster_join_fails: false
-      bind_addr:
-      - ${MY_POD_IP}
+      bind_addr: ${MY_POD_IP}
       compression_enabled: false
       join_members:
       - mimir-gossip-ring.mimir.svc.cluster.local:7946
