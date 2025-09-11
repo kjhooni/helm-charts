@@ -1,3 +1,9 @@
+store_gateway:
+  env:
+    - name: MY_POD_IP
+      valueFrom:
+        fieldRef:
+          fieldPath: status.podIP
 ingester:
   env:
     - name: MY_POD_IP
