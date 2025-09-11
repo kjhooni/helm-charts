@@ -13,14 +13,14 @@ mimir:
       ring:
         # heartbeat_period: 1m
         # heartbeat_timeout: 4m
-        instance_addr: ${POD_ID}
+        instance_addr: ${MY_POD_IP}
     memberlist:
       abort_if_cluster_join_fails: false
       bind_addr:
       - ${MY_POD_IP}
       compression_enabled: false
       join_members:
-      - mimir-gossip-ring:7946
+      - mimir-gossip-ring.mimir.svc.cluster.local:7946
       - dns+mimir-gossip-ring.mimir.svc.cluster.local.:7946
 
     blocks_storage:
