@@ -71,12 +71,12 @@ prometheus.scrape "kube_state_metrics" {
 
 prometheus.remote_write "to_mimir" {
   endpoint {
-    url = "http://mimir-distributor.mimir.svc.cluster.local:8080/api/v1/push",
+    url = "http://mimir-distributor.mimir.svc.cluster.local:8080/api/v1/push"
   }
 
-  # optional: 인증이 필요한 경우 추가
-  # basic_auth {
-  #   username = "my-user"
-  #   password = "my-pass"
-  # }
+  // optional: 인증이 필요한 경우 추가
+  // basic_auth {
+  //   username = "my-user"
+  //   password = "my-pass"
+  // }
 }
