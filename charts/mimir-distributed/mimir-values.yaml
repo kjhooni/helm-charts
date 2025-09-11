@@ -30,8 +30,7 @@ mimir:
     #   - dns+mimir-gossip-ring.mimir.svc.cluster.local.:7946
     distributor:
       ring:
-        instance_addr: 
-          - 0.0.0.0
+        instance_addr: 0.0.0.0
     memberlist:
       abort_if_cluster_join_fails: false
       bind_addr: 
