@@ -35,6 +35,18 @@ querier:
       valueFrom:
         fieldRef:
           fieldPath: status.podIP
+alertmanager:
+  env:
+    - name: MY_POD_IP
+      valueFrom:
+        fieldRef:
+          fieldPath: status.podIP
+compactor:
+  env:
+    - name: MY_POD_IP
+      valueFrom:
+        fieldRef:
+          fieldPath: status.podIP
 
 mimir:
   structuredConfig:
