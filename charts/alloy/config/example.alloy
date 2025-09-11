@@ -60,6 +60,7 @@ prometheus.scrape "node_exporter" {
       __address__ = "node-exporter-prometheus-node-exporter.monitoring.svc.cluster.local:9100",
     },
   ]
+  forward_to = [prometheus.remote_write.to_mimir.receiver]
 }
 
 prometheus.scrape "kube_state_metrics" {
@@ -69,6 +70,7 @@ prometheus.scrape "kube_state_metrics" {
       __address__ = "kube-state-metrics.monitoring.svc.cluster.local:8080",
     },
   ]
+  forward_to = [prometheus.remote_write.to_mimir.receiver]
 }
 
 prometheus.remote_write "to_mimir" {
