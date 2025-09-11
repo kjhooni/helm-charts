@@ -59,7 +59,7 @@ mimir:
       bucket_store:
         sync_dir: /data/tsdb-sync
       s3:
-        endpoint: http://new-minio.new-lgtm.svc.cluster.local:9000
+        endpoint: new-minio.new-lgtm.svc.cluster.local:9000
         bucket_name: mimir-blocks
         http:
           insecure_skip_verify: true
@@ -70,7 +70,7 @@ mimir:
     alertmanager_storage:
       backend: s3
       s3:
-        endpoint: http://new-minio.new-lgtm.svc.cluster.local:9000
+        endpoint: new-minio.new-lgtm.svc.cluster.local:9000
         bucket_name: mimir-alertmanager
         http:
           insecure_skip_verify: true
@@ -81,7 +81,7 @@ mimir:
     ruler_storage:
       backend: s3
       s3:
-        endpoint: http://new-minio.new-lgtm.svc.cluster.local:9000
+        endpoint: new-minio.new-lgtm.svc.cluster.local:9000
         bucket_name: mimir-ruler
         http:
           insecure_skip_verify: true
