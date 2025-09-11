@@ -76,7 +76,11 @@ prometheus.scrape "kube_state_metrics" {
 prometheus.remote_write "to_mimir" {
   endpoint {
     url = "http://mimir-distributor.mimir.svc.cluster.local:8080/api/v1/push"
+    headers = {
+      "X-Scope-OrgID" = "1",
+    }
   }
+  
 
   // 인증이 필요한 경우 주석 해제
   // basic_auth {
