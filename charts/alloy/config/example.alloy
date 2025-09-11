@@ -55,7 +55,7 @@ prometheus.scrape "node_exporter" {
   job_name = "node-exporter"
   targets = [
     {
-      __address__ = "node-exporter-prometheus-node-exporter.monitoring.svc.cluster.local:9100",
+      __address__ = "node-exporter-prometheus-node-exporter.monitoring.svc.cluster.local:9100"
     }
   ]
 }
@@ -64,7 +64,7 @@ prometheus.scrape "kube_state_metrics" {
   job_name = "kube-state-metrics"
   targets = [
     {
-      __address__ = "kube-state-metrics.monitoring.svc.cluster.local:8080",
+      __address__ = "kube-state-metrics.monitoring.svc.cluster.local:8080"
     }
   ]
 }
