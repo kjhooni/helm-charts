@@ -44,6 +44,43 @@ loki.process "filter_logs" {
   forward_to = [loki.write.grafana_loki.receiver]
 }
 
+//loki.write "grafana_loki" {
+//  endpoint {
+//    url = "http://loki-write.new-lgtm.svc.cluster.local:3100/loki/api/v1/push"
+//    headers = {
+//      "X-Scope-OrgID" = "1",
+//    }
+//  }
+//}
+
+loki.source.kubernetes "app_pods" {
+  role        = "pod"
+  namespaces  = ["app"]
+  tail_from_end = false
+  forward_to  = [loki.process.k8s_labeler.receiver]
+}
+
+loki.process "k8s_labeler" {
+  stage.static_labels {
+    values = {
+      app       = "k8s-pod-logs"
+    }
+  }
+  stage.relabel {
+    source_labels = ["__meta_kubernetes_namespace"]
+    target_label  = "namespace"
+  }
+  stage.relabel {
+    source_labels = ["__meta_kubernetes_pod_name"]
+    target_label  = "pod"
+  }
+  stage.relabel {
+    source_labels = ["__meta_kubernetes_pod_container_name"]
+    target_label  = "container"
+  }
+  forward_to = [loki.write.grafana_loki.receiver]
+}
+
 loki.write "grafana_loki" {
   endpoint {
     url = "http://loki-write.new-lgtm.svc.cluster.local:3100/loki/api/v1/push"
