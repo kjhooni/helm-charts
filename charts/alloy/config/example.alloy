@@ -54,7 +54,7 @@ loki.process "filter_logs" {
 //}
 
 loki.source.kubernetes "app_pods" {
-  role        = "pod"
+  role = "pod"
   namespaces  = ["app"]
   tail_from_end = false
   forward_to  = [loki.process.k8s_labeler.receiver]
