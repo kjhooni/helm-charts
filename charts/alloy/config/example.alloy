@@ -102,7 +102,7 @@ discovery.kubernetes "pods" {
     //role  = "pod"
     //label = "app.kubernetes.io/component in (canary,read)"
   //}
-//}
+}
 
 prometheus.scrape "pods" {
   targets    = discovery.kubernetes.pods.targets
