@@ -98,11 +98,11 @@ discovery.kubernetes "pods" {
     names = ["new-lgtm"]
   }
 
-  selectors {
-    role  = "pod"
-    label = "app.kubernetes.io/component in (canary,read)"
-  }
-}
+  //selectors {
+    //role  = "pod"
+    //label = "app.kubernetes.io/component in (canary,read)"
+  //}
+//}
 
 prometheus.scrape "pods" {
   targets    = discovery.kubernetes.pods.targets
