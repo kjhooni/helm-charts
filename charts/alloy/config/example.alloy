@@ -100,7 +100,7 @@ discovery.kubernetes "pods" {
 
   selectors {
     role  = "pod"
-    label = "environment in (production,alloy)"
+    label = "app.kubernetes.io/component in (canary,read)"
   }
 }
 
