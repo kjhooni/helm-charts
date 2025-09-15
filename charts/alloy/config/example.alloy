@@ -63,7 +63,7 @@ loki.source.kubernetes "app_pods" {
 loki.process "k8s_labeler" {
   stage.static_labels {
     values = {
-      app       = "k8s-pod-logs"
+      app = "k8s-pod-logs",
     }
   }
   stage.relabel {
