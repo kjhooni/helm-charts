@@ -78,27 +78,28 @@ prometheus.remote_write "to_mimir" {
   //   password = "my-pass"
   // }
 }
+// 없애도될듯?
+//discovery.kubernetes "pods" {
+//  role = "pod"
 
-discovery.kubernetes "pods" {
-  role = "pod"
+//  namespaces {
+//    own_namespace = false
 
-  namespaces {
-    own_namespace = false
-
-    names = ["new-lgtm"]
-  }
+//    names = ["new-lgtm"]
+//  }
 
   //selectors {
     //role  = "pod"
     //label = "app.kubernetes.io/component in (canary,read)"
   //}
-}
+//}
 
 prometheus.scrape "pods" {
   targets    = discovery.kubernetes.pods.targets
   forward_to = [prometheus.remote_write.default.receiver]
 }
 
+//  //
 prometheus.remote_write "default" {
   endpoint {
     url = "http://mimir-distributor.mimir.svc.cluster.local:8080/api/v1/push"
@@ -107,6 +108,8 @@ prometheus.remote_write "default" {
     }
   }
 }
+
+// k8s 클러스터 로그 수집을 위한 설정 //
 
 // discovery.kubernetes allows you to find scrape targets from Kubernetes resources.
 // It watches cluster state and ensures targets are continually synced with what is currently running in your cluster.
