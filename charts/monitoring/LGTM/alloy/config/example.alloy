@@ -76,21 +76,7 @@ discovery.relabel "pod_logs" {
 
 
 
-//loki.source.file "log_scrape" {
-//  targets       = local.file_match.local_files.targets
-//  tail_from_end = false
-//  forward_to    = [loki.process.filter_logs.receiver]
-//}
 
-
-//loki.process "filter_logs" {
-//  stage.drop {
-//    source              = ""
-//    expression          = ".*Connection closed by authenticating user root"
-//    drop_counter_reason = "noisy"
-//  }
-//  forward_to = [loki.write.grafana_loki.receiver]
-//}
 
 
 
