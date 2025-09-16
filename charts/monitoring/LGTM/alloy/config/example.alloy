@@ -1,5 +1,4 @@
 // discovery //
-
 // discovery.kubernetes allows you to find scrape targets from Kubernetes resources.
 // It watches cluster state and ensures targets are continually synced with what is currently running in your cluster.
 discovery.kubernetes "pod" {
@@ -95,7 +94,7 @@ discovery.relabel "pod_logs" {
 
 
 
-
+// prometheus //
 prometheus.scrape "pods" {
   targets    = discovery.kubernetes.pod.targets
   forward_to = [prometheus.remote_write.to_mimir.receiver]
@@ -139,7 +138,7 @@ prometheus.remote_write "to_mimir" {
 
 
 
-// k8s 클러스터 로그 수집을 위한 설정 //
+// loki //
 // loki.source.kubernetes tails logs from Kubernetes containers using the Kubernetes API.
 loki.source.kubernetes "pod_logs" {
   targets    = discovery.relabel.pod_logs.output
