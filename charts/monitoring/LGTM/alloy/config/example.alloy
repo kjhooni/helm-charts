@@ -5,20 +5,7 @@ local.file_match "local_files" {
   sync_period = "5s"
 }
 
-local.file_match "tomcat_logs" {
-  path_targets = [
-    { "__path__" = "/opt/bitnami/tomcat/logs/localhost_access_log.*.txt", },
-    { "__path__" = "/opt/bitnami/tomcat/logs/catalina.*.log", },
-    { "__path__" = "/opt/bitnami/tomcat/logs/localhost.*.log", },
-  ]
-  sync_period = "5s"
-}
 
-loki.source.file "tomcat_scrape" {
-  targets       = local.file_match.tomcat_logs.targets
-  tail_from_end = false
-  forward_to    = [loki.write.grafana_loki.receiver]
-}
 
 loki.source.file "log_scrape" {
   targets       = local.file_match.local_files.targets
@@ -26,14 +13,6 @@ loki.source.file "log_scrape" {
   forward_to    = [loki.process.filter_logs.receiver]
 }
 
-loki.process "tomcat_labeler" {
-  stage.static_labels {
-    values = {
-      app = "tomcat",
-    }
-  }
-  forward_to = [loki.write.grafana_loki.receiver]
-}
 
 loki.process "filter_logs" {
   stage.drop {
@@ -53,33 +32,7 @@ loki.process "filter_logs" {
 //  }
 //}
 
-loki.source.kubernetes "app_pods" {
-  role = "pod"
-  namespaces  = ["app"]
-  tail_from_end = false
-  forward_to  = [loki.process.k8s_labeler.receiver]
-}
 
-loki.process "k8s_labeler" {
-  stage.static_labels {
-    values = {
-      app = "k8s-pod-logs",
-    }
-  }
-  stage.relabel {
-    source_labels = ["__meta_kubernetes_namespace"]
-    target_label  = "namespace"
-  }
-  stage.relabel {
-    source_labels = ["__meta_kubernetes_pod_name"]
-    target_label  = "pod"
-  }
-  stage.relabel {
-    source_labels = ["__meta_kubernetes_pod_container_name"]
-    target_label  = "container"
-  }
-  forward_to = [loki.write.grafana_loki.receiver]
-}
 
 loki.write "grafana_loki" {
   endpoint {
