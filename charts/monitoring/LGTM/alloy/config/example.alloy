@@ -108,17 +108,17 @@ prometheus.remote_write "default" {
   }
 }
 
-otelcol.receiver.k8s "wordpress-logs" {
-  include_namespaces: ["app"]
-  include_pod_names: ["wordpress"]
-  include_containers: ["wordpress"]
+otelcol.receiver.k8s "wordpress_logs" {
+  include_namespaces = ["app"]
+  include_pod_names  = ["wordpress"]
+  include_containers = ["wordpress"]
 }
 
 otelcol.exporter.loki "loki" {
-  endpoint: "http://loki-write.new-lgtm.svc.cluster.local:3100/loki/api/v1/push"
+  endpoint = "http://loki-write.new-lgtm.svc.cluster.local:3100/loki/api/v1/push"
 }
 
-otelcol.service.pipeline "wordpress-logs" {
-  receivers: ["wordpress-logs"]
-  exporters: ["loki"]
+otelcol.service.pipeline "wordpress_logs" {
+  receivers = ["wordpress_logs"]
+  exporters = ["loki"]
 }
