@@ -31,7 +31,7 @@ spec:
         - containerPort: 8080
         env:
         - name: OTEL_EXPORTER_OTLP_ENDPOINT
-          value: "http://alloy:12345"
+          value: "http://alloy.new-lgtm.svc.cluster.local:12345"
         - name: OTEL_SERVICE_NAME
           value: "tomcat-app"
         # JVM 옵션에 Java Agent 추가
