@@ -26,6 +26,8 @@
     limits_config:
       allow_structured_metadata: true
       volume_enabled: true
+      max_query_length: 8760h    # 1년
+      max_query_range: 8760h
 
     storage:
       bucketNames:
