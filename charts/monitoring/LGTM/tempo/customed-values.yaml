@@ -1,0 +1,10 @@
+tempo:
+  storage:
+    trace:
+      backend: s3
+      s3:
+        bucket: tempo-bucket                        # store traces in this bucket
+        endpoint: new-minio.new-lgtm.svc.cluster.local:9000  # api endpoint
+        access_key: tq5CBo9EEcld6752NwSd               # optional. access key when using static credentials.
+        secret_key: HTfcF2waO5kCm7W7HxGaeD8MKOYba0Y4S5KBR2x9  # optional. secret key when using static credentials.
+        insecure: true
