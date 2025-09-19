@@ -152,6 +152,8 @@ loki.write "grafana_loki" {
   }
 }
 
+
+/*
 // tempo //
 otelcol.receiver.otlp "default" {
   protocols {
@@ -184,3 +186,4 @@ otelcol.service "traces" {
     ]
   }
 }
+*/
