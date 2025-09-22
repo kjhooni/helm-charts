@@ -10,3 +10,6 @@ initChownData:
   ## This allows the grafana-server to be run with an arbitrary user
   ##
   enabled: false
+grafana.ini:
+  server:
+    domain: "http://14.63.186.64:31180"
